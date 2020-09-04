@@ -1,18 +1,19 @@
 from django.db import models
+from django.utils import timezone
 
 # Create your models here.
 class Character(models.Model):
     # implicit id for primary key
-    name = models.CharField(max_length=100)
-    creator = models.CharField(max_length=30)
-    date = models.DateTimeField('creation date')
+    name = models.CharField(max_length=50, default='n/a')
+    creator = models.CharField(max_length=30, default='n/a')
+    date = models.DateTimeField('creation date', default=timezone.now)
 
     # basic information
-    char_class = models.CharField('class', max_length=20)
+    char_class = models.CharField('class', max_length=20, default='n/a')
     level = models.IntegerField(default=1)
-    bg = models.CharField('background', max_length=20)
-    race = models.CharField(max_length=20)
-    alignment = models.CharField(max_length=20)
+    bg = models.CharField('background', max_length=20, default='n/a')
+    race = models.CharField(max_length=20, default='n/a')
+    alignment = models.CharField(max_length=20, default='n/a')
     exp = models.IntegerField('experience', default=0)
 
     # important
@@ -97,14 +98,14 @@ class Character(models.Model):
     pass_wsd = models.IntegerField('massive wisdom (perception)', default=0)
 
     # cash
-    cp = models.FloatField('money (cp)', default=0.0)
-    sp = models.FloatField('money (sp)', default=0.0)
-    ep = models.FloatField('money (ep)', default=0.0)
-    gp = models.FloatField('money (gp)', default=0.0)
-    pp = models.FloatField('money (pp)', default=0.0)
+    cp = models.FloatField('money (cp)', default=0)
+    sp = models.FloatField('money (sp)', default=0)
+    ep = models.FloatField('money (ep)', default=0)
+    gp = models.FloatField('money (gp)', default=0)
+    pp = models.FloatField('money (pp)', default=0)
 
     # spells stats
-    spell_abl = models.CharField('spellcasting ability', max_length=10)
+    spell_abl = models.CharField('spellcasting ability', max_length=10, default='n/a')
     spl_atk = models.IntegerField('spell attack bonus', default=0)
     spl_save = models.IntegerField('spell save dc', default=0)
 
@@ -137,34 +138,79 @@ class Character(models.Model):
     lv9_used = models.IntegerField('level 9 used slots', default=0)
 
     # text fields
-    profs_lang = models.TextField('proficiencies and languages')
-    feats_traits = models.TextField('features and traits')
+    profs_lang = models.TextField('proficiencies and languages', default='Proficiencies, languages')
+    feats_traits = models.TextField('features and traits', default='Features, traits')
     personality = models.TextField(default='ideals, bonds, flaws')
     backstory = models.TextField(default='character history, allies, organizations, etc.')
     appearance = models.TextField(default='hair, eye, skin, etc.')
 
+    def getStats(self):
+        return {
+            'str': (self.strength, self.str_st, self.str_st_prof),
+            'dex': (self.dexterity, self.dex_st, self.dex_st_prof),
+            'con': (self.constitution, self.con_st, self.con_st_prof),
+            'int': (self.intelligence, self.int_st, self.int_st_prof),
+            'wsd': (self.wisdom, self.wsd_st, self.wsd_st_prof),
+            'chr': (self.charisma, self.chr_st, self.chr_st_prof)
+        }
+
+    def getSkills(self):
+        return {
+            'acro': (self.acro, self.acro_prf),
+            'anha': (self.anha, self.anha_prf),
+            'arca': (self.arca, self.arca_prf),
+            'athl': (self.athl, self.athl_prf),
+            'decp': (self.decp, self.decp_prf),
+            'hist': (self.hist, self.hist_prf),
+            'insi': (self.insi, self.insi_prf),
+            'intm': (self.intm, self.intm_prf),
+            'invs': (self.invs, self.invs_prf),
+            'medi': (self.medi, self.medi_prf),
+            'natr': (self.natr, self.natr_prf),
+            'perc': (self.perc, self.perc_prf),
+            'perf': (self.perf, self.perf_prf),
+            'pers': (self.pers, self.pers_prf),
+            'rlgn': (self.rlgn, self.rlgn_prf),
+            'sloh': (self.sloh, self.sloh_prf),
+            'stea': (self.stea, self.stea_prf),
+            'surv': (self.surv, self.surv_prf)
+        }
+
+    def getSpellSlots(self):
+        return [
+            (self.lv1_used, self.lv1_slots),
+            (self.lv2_used, self.lv2_slots),
+            (self.lv3_used, self.lv3_slots),
+            (self.lv4_used, self.lv4_slots),
+            (self.lv5_used, self.lv5_slots),
+            (self.lv6_used, self.lv6_slots),
+            (self.lv7_used, self.lv7_slots),
+            (self.lv8_used, self.lv8_slots),
+            (self.lv9_used, self.lv9_slots)
+        ]
+
 class Equipment(models.Model):
     character = models.ForeignKey(Character, null=True, on_delete=models.CASCADE, related_name='owner')
-    name = models.CharField('equipment', max_length=50)
+    name = models.CharField('equipment', max_length=50, default='')
     quantity = models.IntegerField(default=1)
-    weight = models.FloatField(default=1.0)
+    weight = models.FloatField(default=1)
 
     class Meta:
         unique_together = (('character', 'name'),)
 
 class AttackSpell(models.Model):
     character = models.ForeignKey(Character, null=True, on_delete=models.CASCADE, related_name='attacker')
-    name = models.CharField('attack name', max_length=30)
-    hit_dc = models.CharField('hit/dc', max_length=10)
-    range = models.IntegerField(default=5)
-    damage = models.CharField('damage/type', max_length=20)
+    name = models.CharField('attack name', max_length=30, default='')
+    hit_dc = models.CharField('hit/dc', max_length=10, default='0')
+    r = models.IntegerField('range', default=5)
+    damage = models.CharField('damage/type', max_length=20, default='')
 
     class Meta:
         unique_together = (('character', 'name'),)
 
 class CharSpells(models.Model):
     character = models.ForeignKey(Character, null=True, on_delete=models.CASCADE, related_name='caster')
-    name = models.CharField('Spell Name', max_length=30)
+    name = models.CharField('Spell Name', max_length=30, default='')
     level = models.IntegerField(default=0)
     prepared = models.BooleanField(default=False)
 
