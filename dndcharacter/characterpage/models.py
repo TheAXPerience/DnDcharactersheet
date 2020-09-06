@@ -191,7 +191,7 @@ class Character(models.Model):
 
 class Equipment(models.Model):
     character = models.ForeignKey(Character, null=True, on_delete=models.CASCADE, related_name='owner')
-    name = models.CharField('equipment', max_length=50, default='')
+    name = models.CharField('equipment', max_length=50, default='n/a')
     quantity = models.IntegerField(default=1)
     weight = models.FloatField(default=1)
 
@@ -200,17 +200,17 @@ class Equipment(models.Model):
 
 class AttackSpell(models.Model):
     character = models.ForeignKey(Character, null=True, on_delete=models.CASCADE, related_name='attacker')
-    name = models.CharField('attack name', max_length=30, default='')
+    name = models.CharField('attack name', max_length=30, default='n/a')
     hit_dc = models.CharField('hit/dc', max_length=10, default='0')
     r = models.IntegerField('range', default=5)
-    damage = models.CharField('damage/type', max_length=20, default='')
+    damage = models.CharField('damage/type', max_length=20, default='n/a')
 
     class Meta:
         unique_together = (('character', 'name'),)
 
 class CharSpells(models.Model):
     character = models.ForeignKey(Character, null=True, on_delete=models.CASCADE, related_name='caster')
-    name = models.CharField('Spell Name', max_length=30, default='')
+    name = models.CharField('spell name', max_length=30, default='n/a')
     level = models.IntegerField(default=0)
     prepared = models.BooleanField(default=False)
 

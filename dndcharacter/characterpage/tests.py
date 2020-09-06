@@ -1,7 +1,8 @@
 from django.test import TestCase
-from .models import Character
+from .models import Character, Equipment, AttackSpell, CharSpells
 from django.utils import timezone
 from django.core import exceptions
+from django.db.utils import IntegrityError
 import datetime
 
 # Create your tests here.
@@ -457,3 +458,200 @@ class CharacterCreationTestcase(TestCase):
             self.assertEqual(ay, 0)
             self.assertEqual(bx, 1)
             self.assertEqual(by, 3)
+
+class EquipmentTests(TestCase):
+    def setUp(self):
+        Character.objects.create(name='kevin')
+
+    def test_default(self):
+        e = Equipment(
+            character=Character.objects.get(name='kevin')
+        )
+        self.assertEqual(e.name, 'n/a')
+        self.assertEqual(e.quantity, 1)
+        self.assertEqual(e.weight, 1)
+
+    def test_change(self):
+        e = Equipment(
+            character=Character.objects.get(name='kevin'),
+            name='toby',
+            quantity=4,
+            weight=3
+        )
+        self.assertEqual(e.name, 'toby')
+        self.assertEqual(e.quantity, 4)
+        self.assertEqual(e.weight, 3)
+        e.save()
+
+        e.name = 'bread'
+        e.quantity = 5
+        e.weight = 2.5
+        e.save()
+
+        f = Equipment.objects.get(id=e.id)
+        self.assertEqual(f.name, 'bread')
+        self.assertEqual(f.quantity, 5)
+        self.assertEqual(f.weight, 2.5)
+        f.delete()
+
+    def test_delete(self):
+        c = Character.objects.get(name='kevin')
+        e = Equipment(character=c, name='bow')
+        e.save()
+        self.assertEqual(Equipment.objects.count(), 1)
+        e.delete()
+        self.assertEqual(Equipment.objects.count(), 0)
+    
+    def test_cascade(self):
+        c = Character(name='style')
+        c.save()
+        Equipment.objects.create(character=c, name='sword')
+        Equipment.objects.create(character=c, name='lance')
+        Equipment.objects.create(character=c, name='axe')
+        self.assertEqual(Equipment.objects.count(), 3)
+        c.delete()
+        self.assertEqual(Equipment.objects.count(), 0)
+
+    def test_unique_together(self):
+        c = Character.objects.get(name='kevin')
+        e1 = Equipment(character=c, name='sword')
+        e2 = Equipment(character=c, name='sword')
+        e1.save()
+        try:
+            e2.save()
+            self.assertEqual(True, False)
+        except IntegrityError:
+            pass
+
+class AttackSpellTest(TestCase):
+    def setUp(self):
+        Character.objects.create(name='kevin')
+
+    def test_default(self):
+        e = AttackSpell(
+            character=Character.objects.get(name='kevin')
+        )
+        self.assertEqual(e.name, 'n/a')
+        self.assertEqual(e.hit_dc, '0')
+        self.assertEqual(e.r, 5)
+        self.assertEqual(e.damage, 'n/a')
+
+    def test_change(self):
+        e = AttackSpell(
+            character=Character.objects.get(name='kevin'),
+            name='flame',
+            hit_dc='+5',
+            r=25,
+            damage='1d8 + 2'
+        )
+        self.assertEqual(e.name, 'flame')
+        self.assertEqual(e.hit_dc, '+5')
+        self.assertEqual(e.r, 25)
+        self.assertEqual(e.damage, '1d8 + 2')
+        e.save()
+
+        e.name = 'aqua'
+        e.hit_dc = 'con 14'
+        e.r = 60
+        e.damage = '2d6'
+        e.save()
+
+        f = AttackSpell.objects.get(id=e.id)
+        self.assertEqual(f.name, 'aqua')
+        self.assertEqual(f.hit_dc, 'con 14')
+        self.assertEqual(f.r, 60)
+        self.assertEqual(f.damage, '2d6')
+        f.delete()
+
+    def test_delete(self):
+        c = Character.objects.get(name='kevin')
+        e = AttackSpell(character=c, name='hammer')
+        e.save()
+        self.assertEqual(AttackSpell.objects.count(), 1)
+        e.delete()
+        self.assertEqual(AttackSpell.objects.count(), 0)
+    
+    def test_cascade(self):
+        c = Character(name='style')
+        c.save()
+        AttackSpell.objects.create(character=c, name='sword')
+        AttackSpell.objects.create(character=c, name='lance')
+        AttackSpell.objects.create(character=c, name='axe')
+        self.assertEqual(AttackSpell.objects.count(), 3)
+        c.delete()
+        self.assertEqual(AttackSpell.objects.count(), 0)
+
+    def test_unique_together(self):
+        c = Character.objects.get(name='kevin')
+        e1 = AttackSpell(character=c, name='sword')
+        e2 = AttackSpell(character=c, name='sword')
+        e1.save()
+        try:
+            e2.save()
+            self.assertEqual(True, False)
+        except IntegrityError:
+            pass
+
+class CharSpellTest(TestCase):
+    def setUp(self):
+        Character.objects.create(name='kevin')
+
+    def test_default(self):
+        e = CharSpells(
+            character=Character.objects.get(name='kevin')
+        )
+        self.assertEqual(e.name, 'n/a')
+        self.assertEqual(e.level, 0)
+        self.assertEqual(e.prepared, False)
+
+    def test_change(self):
+        e = CharSpells(
+            character=Character.objects.get(name='kevin'),
+            name='flame',
+            level=2,
+            prepared=True
+        )
+        self.assertEqual(e.name, 'flame')
+        self.assertEqual(e.level, 2)
+        self.assertEqual(e.prepared, True)
+        e.save()
+
+        e.name = 'aqua'
+        e.level = 4
+        e.prepared = False
+        e.save()
+
+        f = CharSpells.objects.get(id=e.id)
+        self.assertEqual(e.name, 'aqua')
+        self.assertEqual(e.level, 4)
+        self.assertEqual(e.prepared, False)
+        f.delete()
+
+    def test_delete(self):
+        c = Character.objects.get(name='kevin')
+        e = CharSpells(character=c, name='hammer')
+        e.save()
+        self.assertEqual(CharSpells.objects.count(), 1)
+        e.delete()
+        self.assertEqual(CharSpells.objects.count(), 0)
+    
+    def test_cascade(self):
+        c = Character(name='style')
+        c.save()
+        CharSpells.objects.create(character=c, name='sword')
+        CharSpells.objects.create(character=c, name='lance')
+        CharSpells.objects.create(character=c, name='axe')
+        self.assertEqual(CharSpells.objects.count(), 3)
+        c.delete()
+        self.assertEqual(CharSpells.objects.count(), 0)
+
+    def test_unique_together(self):
+        c = Character.objects.get(name='kevin')
+        e1 = CharSpells(character=c, name='sword')
+        e2 = CharSpells(character=c, name='sword')
+        e1.save()
+        try:
+            e2.save()
+            self.assertEqual(True, False)
+        except IntegrityError:
+            pass
