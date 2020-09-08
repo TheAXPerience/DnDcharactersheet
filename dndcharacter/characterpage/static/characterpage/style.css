@@ -1,0 +1,377 @@
+body {
+  font-family: sans-serif;
+  background-color: black;
+  font-size: 12px;
+  color: black;
+}
+
+body div {
+  width: 80%;
+  margin: 0px auto;
+  padding: 12px 2px;
+  text-align: center;
+}
+
+#header{
+  margin: 0px auto;
+  padding: 0px;
+}
+
+.header-box {
+  width: 99.45%;
+  background-color: white;
+  margin: 0px auto;
+  padding: 20px 0px;
+}
+
+.header-box h1 {
+  font-size: 36px;
+  vertical-align: center;
+}
+
+#basics {
+  background-color: white;
+  width: 99.45%;
+  margin: 0px auto;
+  padding: 0px;
+  padding-bottom: 8px;
+  vertical-align: center;
+}
+
+#header table {
+  background-color: black;
+  margin: 0px auto;
+  padding: 0px;
+  width: 99.65%;
+}
+
+#header table thead tr th {
+  background-color: white;
+  width: 16.5%;
+  padding: 6px 0px;
+  font-size: 22px;
+}
+
+#header table tbody tr td {
+  background-color: white;
+  width: 16%;
+  padding: 4px 0px;
+  font-size: 18px;
+}
+
+#stats {
+  background-color: black;
+  padding: 0px;
+  margin: 1px auto;
+}
+
+.stat {
+  background-color: white;
+  width: 16.14%;
+  margin: 0px;
+  padding: 4px 2px 2px 2px;
+  display: inline-block;
+}
+
+.stat h1 {
+  font-size: 24px;
+  margin: 4px;
+}
+
+.main {
+  font-size: 30px;
+  margin: 0px;
+}
+
+.plus {
+  font-size: 22px;
+  margin: 4px auto 1px;
+  padding: 0px;
+  width: 20%;
+  border: 2px;
+  border-style: solid;
+  border-color: black;
+}
+
+.box {
+  background-color: white;
+  width: 20%;
+  margin: 0px;
+  display: inline-block;
+}
+
+#indies {
+  background-color: black;
+  padding: 0px;
+  margin: 0px auto;
+}
+
+#indies .box {
+  background-color: white;
+  width: 33%;
+  margin: 0px;
+  padding: 4px 0px;
+  vertical-align: middle;
+}
+
+#indies .in-box-p {
+  font-size: 20px;
+  margin: 8px 0px;
+}
+
+#inspiration p {
+  font-size: 20px;
+  margin: 6px 0px;
+}
+
+.fill-in {
+  width: 25%;
+  height: 7px;
+  background-color: white;
+  border: 2px;
+  border-style: solid;
+  border-color: black;
+  border-radius: 20%;
+  margin: 3px auto 0px auto;
+}
+
+.filled-in {
+  width: 25%;
+  height: 7px;
+  background-color: yellow;
+  border: 2px;
+  border-style: solid;
+  border-color: black;
+  border-radius: 20%;
+  margin: 0px auto;
+}
+
+#charstate {
+  background-color: black;
+  padding: 0px;
+}
+
+.three .box{
+  background-color: white;
+  width: 33%;
+  margin: 0px;
+  margin-top: 2px;
+  margin-bottom: 1px;
+  padding: 4px 0px;
+}
+
+.four .box {
+  background-color: white;
+  width: 24.7%;
+  margin: 0px;
+  margin-top: 1px;
+  padding: 4px 0px;
+}
+
+.in-box-p {
+  font-size: 20px;
+  margin: 8px 0px;
+}
+
+.st {
+  background-color: white;
+  margin: 1px 0px;
+  padding: 2px 0px;
+  width: 24.7%;
+  display: inline-block;
+}
+
+.super_st {
+  background-color: white;
+  margin: 1px 0px;
+  padding: 2px 0px;
+  width: 74.5%;
+  display: inline-block;
+}
+
+.st h1 {
+  font-size : 24px;
+  margin: 8px;
+}
+
+.super_st h1 {
+  font-size: 24px;
+  margin: 8px;
+}
+
+.circle {
+  font-size: 0px;
+  margin: 4px auto;
+  margin-right: 12px;
+  padding: 0px;
+  height: 20px;
+  width: 20px;
+  border: 2px;
+  background-color: white;
+  border-color: black;
+  border-style: solid;
+  border-radius: 50%;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.circle-filled {
+  font-size: 0px;
+  margin: 4px auto;
+  margin-right: 12px;
+  padding: 0px;
+  height: 20px;
+  width: 20px;
+  border: 2px;
+  background-color: yellow;
+  border-color: black;
+  border-style: solid;
+  border-radius: 50%;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+#savingthrows {
+  margin: 1px auto;
+  padding: 0px;
+}
+
+.st p {
+  font-size: 20px;
+  margin: 8px 0px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.st .plus {
+  margin-left: 12px;
+  margin-bottom: 4px;
+  width: 10%;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+#attacks {
+  margin: 1px auto;
+  padding: 0px;
+}
+
+.super-box {
+  background-color: white;
+  margin: 0px auto 0px auto;
+  padding: 2px 0px;
+  width: 99.45%;
+}
+
+.super-box h1 {
+  font-size: 28px;
+  margin: 8px;
+}
+
+.super-box table {
+  margin: 0px auto;
+  padding: 0px 0px;
+  background-color: black;
+  width: 99.65%;
+  font-size: 20px;
+}
+
+.super-box table thead tr th {
+  background-color: white;
+  padding: 6px 0px;
+}
+
+.super-box table tbody tr td {
+  background-color: white;
+  font-size: 18px;
+  padding: 4px 0px;
+}
+
+.thirty {
+  width: 30%;
+}
+
+.three-three {
+  width: 33%;
+}
+
+.twenty {
+  width: 20%;
+}
+
+.forty {
+  width: 40%;
+}
+
+#equipment {
+  margin: 0px auto;
+  margin-top: 1px;
+  padding: 0px;
+}
+
+#equipment .box {
+  padding: 0px;
+  margin: 2px auto;
+  display: inline-block;
+  vertical-align: top;
+}
+
+#money {
+  width: 100%;
+  margin: 0px auto;
+  padding: 0px;
+}
+
+.cash {
+  background-color: white;
+  margin: 2px auto;
+  width: 19.45%;
+  display: inline-block;
+}
+
+.cash p {
+  display: inline-block;
+  padding: 1px;
+  margin: 0px 20px;
+  font-size: 20px;
+}
+
+#spells {
+  margin: 0px auto;
+  padding: 0px;
+}
+
+#overall {
+  width: 100%;
+  margin: 0px auto;
+  padding: 0px;
+}
+
+#slots {
+  width: 100%;
+  margin: 0px auto;
+  padding: 0px;
+}
+
+#texts {
+  margin: 0px auto;
+  padding: 0px;
+}
+
+.txt {
+  background-color: white;
+  text-align: left;
+  margin: 0px auto 1px auto;
+  padding: 4px 0px;
+  width: 99.45%;
+}
+
+.txt h1 {
+  font-size: 24px;
+  margin: 4px 0px;
+}
+
+.txt p {
+  margin: 4px;
+  font-size: 16px;
+}

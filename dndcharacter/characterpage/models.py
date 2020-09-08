@@ -145,6 +145,15 @@ class Character(models.Model):
     appearance = models.TextField(default='hair, eye, skin, etc.')
 
     def getStats(self):
+        return [
+            {'name': 'Strength', 'stat': self.strength, 'bonus': int((self.strength - 10) / 2)},
+            {'name': 'Dexterity', 'stat': self.dexterity, 'bonus': int((self.dexterity - 10) / 2)},
+            {'name': 'Constitution', 'stat': self.constitution, 'bonus': int((self.constitution - 10) / 2)},
+            {'name': 'Intelligence', 'stat': self.intelligence, 'bonus': int((self.intelligence - 10) / 2)},
+            {'name': 'Wisdom', 'stat': self.wisdom, 'bonus': int((self.wisdom - 10) / 2)},
+            {'name': 'Charisma', 'stat': self.charisma, 'bonus': int((self.charisma - 10) / 2)}
+        ]
+        """
         return {
             'str': (self.strength, self.str_st, self.str_st_prof),
             'dex': (self.dexterity, self.dex_st, self.dex_st_prof),
@@ -152,45 +161,60 @@ class Character(models.Model):
             'int': (self.intelligence, self.int_st, self.int_st_prof),
             'wsd': (self.wisdom, self.wsd_st, self.wsd_st_prof),
             'chr': (self.charisma, self.chr_st, self.chr_st_prof)
-        }
+        }"""
 
-    def getSkills(self):
-        return {
-            'acro': (self.acro, self.acro_prf),
-            'anha': (self.anha, self.anha_prf),
-            'arca': (self.arca, self.arca_prf),
-            'athl': (self.athl, self.athl_prf),
-            'decp': (self.decp, self.decp_prf),
-            'hist': (self.hist, self.hist_prf),
-            'insi': (self.insi, self.insi_prf),
-            'intm': (self.intm, self.intm_prf),
-            'invs': (self.invs, self.invs_prf),
-            'medi': (self.medi, self.medi_prf),
-            'natr': (self.natr, self.natr_prf),
-            'perc': (self.perc, self.perc_prf),
-            'perf': (self.perf, self.perf_prf),
-            'pers': (self.pers, self.pers_prf),
-            'rlgn': (self.rlgn, self.rlgn_prf),
-            'sloh': (self.sloh, self.sloh_prf),
-            'stea': (self.stea, self.stea_prf),
-            'surv': (self.surv, self.surv_prf)
-        }
+    def getStSkills(self):
+        return [
+            {'name': 'Strength', 'prf': self.str_st_prof, 'bonus': self.str_st},
+            {'name': 'Acrobatics', 'prf': self.acro_prf, 'bonus': self.acro},
+            {'name': 'Animal Handling', 'prf': self.anha_prf, 'bonus': self.anha},
+            {'name': 'Arcana', 'prf': self.arca_prf, 'bonus': self.arca},
+            {'name': 'Dexterity', 'prf': self.dex_st_prof, 'bonus': self.dex_st},
+            {'name': 'Athletics', 'prf': self.athl_prf, 'bonus': self.athl},
+            {'name': 'Deception', 'prf': self.decp_prf, 'bonus': self.decp},
+            {'name': 'History', 'prf': self.hist_prf, 'bonus': self.hist},
+            {'name': 'Constitution', 'prf': self.con_st_prof, 'bonus': self.con_st},
+            {'name': 'Insight', 'prf': self.insi_prf, 'bonus': self.insi},
+            {'name': 'Intimidation', 'prf': self.intm_prf, 'bonus': self.intm},
+            {'name': 'Investigation', 'prf': self.invs_prf, 'bonus': self.invs},
+            {'name': 'Intelligence', 'prf': self.int_st_prof, 'bonus': self.int_st},
+            {'name': 'Medicine', 'prf': self.medi_prf, 'bonus': self.medi},
+            {'name': 'Nature', 'prf': self.natr_prf, 'bonus': self.natr},
+            {'name': 'Perception', 'prf': self.perc_prf, 'bonus': self.perc},
+            {'name': 'Wisdom', 'prf': self.wsd_st_prof, 'bonus': self.wsd_st},
+            {'name': 'Performance', 'prf': self.perf_prf, 'bonus': self.perf},
+            {'name': 'Persuasion', 'prf': self.pers_prf, 'bonus': self.pers},
+            {'name': 'Religion', 'prf': self.rlgn_prf, 'bonus': self.rlgn},
+            {'name': 'Charisma', 'prf': self.chr_st_prof, 'bonus': self.chr_st},
+            {'name': 'Sleight of Hand', 'prf': self.sloh_prf, 'bonus': self.sloh},
+            {'name': 'Stealth', 'prf': self.stea_prf, 'bonus': self.stea},
+            {'name': 'Survival', 'prf': self.surv_prf, 'bonus': self.surv}
+        ]
+
+    def getMoney(self):
+        return [
+            {'name': 'CP', 'value': self.cp},
+            {'name': 'SP', 'value': self.sp},
+            {'name': 'EP', 'value': self.ep},
+            {'name': 'GP', 'value': self.gp},
+            {'name': 'PP', 'value': self.pp}
+        ]
 
     def getSpellSlots(self):
         return [
-            (self.lv1_used, self.lv1_slots),
-            (self.lv2_used, self.lv2_slots),
-            (self.lv3_used, self.lv3_slots),
-            (self.lv4_used, self.lv4_slots),
-            (self.lv5_used, self.lv5_slots),
-            (self.lv6_used, self.lv6_slots),
-            (self.lv7_used, self.lv7_slots),
-            (self.lv8_used, self.lv8_slots),
-            (self.lv9_used, self.lv9_slots)
+            {'lv': '1', 'used': self.lv1_used, 'total': self.lv1_slots},
+            {'lv': '2', 'used': self.lv2_used, 'total': self.lv2_slots},
+            {'lv': '3', 'used': self.lv3_used, 'total': self.lv3_slots},
+            {'lv': '4', 'used': self.lv4_used, 'total': self.lv4_slots},
+            {'lv': '5', 'used': self.lv5_used, 'total': self.lv5_slots},
+            {'lv': '6', 'used': self.lv6_used, 'total': self.lv6_slots},
+            {'lv': '7', 'used': self.lv7_used, 'total': self.lv7_slots},
+            {'lv': '8', 'used': self.lv8_used, 'total': self.lv8_slots},
+            {'lv': '9', 'used': self.lv9_used, 'total': self.lv9_slots}
         ]
 
 class Equipment(models.Model):
-    character = models.ForeignKey(Character, null=True, on_delete=models.CASCADE, related_name='owner')
+    character = models.ForeignKey(Character, null=True, on_delete=models.CASCADE, related_name='equips')
     name = models.CharField('equipment', max_length=50, default='n/a')
     quantity = models.IntegerField(default=1)
     weight = models.FloatField(default=1)
@@ -199,7 +223,7 @@ class Equipment(models.Model):
         unique_together = (('character', 'name'),)
 
 class AttackSpell(models.Model):
-    character = models.ForeignKey(Character, null=True, on_delete=models.CASCADE, related_name='attacker')
+    character = models.ForeignKey(Character, null=True, on_delete=models.CASCADE, related_name='atks')
     name = models.CharField('attack name', max_length=30, default='n/a')
     hit_dc = models.CharField('hit/dc', max_length=10, default='0')
     r = models.IntegerField('range', default=5)
@@ -209,7 +233,7 @@ class AttackSpell(models.Model):
         unique_together = (('character', 'name'),)
 
 class CharSpells(models.Model):
-    character = models.ForeignKey(Character, null=True, on_delete=models.CASCADE, related_name='caster')
+    character = models.ForeignKey(Character, null=True, on_delete=models.CASCADE, related_name='spls')
     name = models.CharField('spell name', max_length=30, default='n/a')
     level = models.IntegerField(default=0)
     prepared = models.BooleanField(default=False)

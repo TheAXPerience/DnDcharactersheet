@@ -13,10 +13,22 @@ def index(request):
 
 def character(request, character_id):
     c = get_object_or_404(Character, pk=character_id)
-    ret = '<a href="/edit/' + str(character_id) + '">Edit</a>'
-    ret += c.name + ' and ' + c.creator + '<br/>'
-    ret += str(c.getStats())
-    return HttpResponse(ret);
+    a = list(c.atks.all())
+    e = list(c.equips.all())
+    s = list(c.spls.all())
+    if a == None or len(a) == 0:
+        a = None
+    if e == None or len(e) == 0:
+        e = None
+    if s == None or len(s) == 0:
+        s = None
+    context = {
+        'character': c,
+        'atk': a,
+        'eqp': e,
+        'spls': s
+    }
+    return render(request, 'characterpage/character.html', context);
 
 def edit(request, character_id):
     return HttpResponse(str(character_id) + ' edit mode<br/><a href="send/">Submit</a>')
