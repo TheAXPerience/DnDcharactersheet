@@ -2,415 +2,431 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
+    <link rel="stylesheet" href="style.css">
     <title>Character Example</title>
   </head>
   <body>
     <div id="header">
-      <p>Example Name</p>
+      <div class="header-box">
+        <h1>Example Name</h1>
+      </div>
       <div id="basics">
-        <p>Player: Creator</p>
-        <p>Class (Lv): Bard (1)</p>
-        <p>Background: Noble</p>
-        <p>Race: Human</p>
-        <p>Alignment: Chaotic Good</p>
-        <p>Experience: 0</p>
+        <table>
+          <thead>
+            <tr>
+              <th>Class</th>
+              <th>Race</th>
+              <th>Player</th>
+              <th>Background</th>
+              <th>Alignment</th>
+              <th>Experience</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Bard (1)</td>
+              <td>Human</td>
+              <td>Creator</td>
+              <td>Noble</td>
+              <td>Chaotic Good</td>
+              <td>0</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
     <div id="stats">
       <div class="stat">
-        <p>Strength</p>
-        <p>10</p>
-        <p>0</p>
+        <h1>Strength</h1>
+        <p class="main">10</p>
+        <p class="plus">+0</p>
       </div>
       <div class="stat">
-        <p>Dexterity</p>
-        <p>10</p>
-        <p>0</p>
+        <h1>Dexterity</h1>
+        <p class="main">10</p>
+        <p class="plus">+0</p>
       </div>
       <div class="stat">
-        <p>Constitution</p>
-        <p>10</p>
-        <p>0</p>
+        <h1>Constitution</h1>
+        <p class="main">10</p>
+        <p class="plus">+0</p>
       </div>
       <div class="stat">
-        <p>Intelligence</p>
-        <p>10</p>
-        <p>0</p>
+        <h1>Intelligence</h1>
+        <p class="main">10</p>
+        <p class="plus">+0</p>
       </div>
       <div class="stat">
-        <p>Wisdom</p>
-        <p>10</p>
-        <p>0</p>
+        <h1>Wisdom</h1>
+        <p class="main">10</p>
+        <p class="plus">+0</p>
       </div>
       <div class="stat">
-        <p>Charisma</p>
-        <p>10</p>
-        <p>0</p>
+        <h1>Charisma</h1>
+        <p class="main">10</p>
+        <p class="plus">+0</p>
       </div>
     </div>
     <div id="indies">
-      <div id="box">
-        <p>Checkbox</p>
+      <div id="inspiration" class="box">
+        <div class="fill-in"></div>
         <p>Inspiration</p>
       </div>
-      <div id="box">
-        <p>+2</p>
-        <p>Proficiency Bonus</p>
+      <div class="box">
+        <p class="main">+2</p>
+        <p class="in-box-p">Proficiency Bonus</p>
       </div>
-      <div id="box">
-        <p>15</p>
-        <p>Passive Wisdom (Perception)</p>
-      </div>
-    </div>
-    <div id="savingthrows">
-      <div class="st">
-        <p>Circle</p>
-        <p>Strength</p>
-        <p>0</p>
-      </div>
-      <div class="st">
-        <p>Circle</p>
-        <p>Dexterity</p>
-        <p>0</p>
-      </div>
-      <div class="st">
-        <p>Circle</p>
-        <p>Constitution</p>
-        <p>0</p>
-      </div>
-      <div class="st">
-        <p>Circle</p>
-        <p>Intelligence</p>
-        <p>0</p>
-      </div>
-      <div class="st">
-        <p>Circle</p>
-        <p>Wisdom</p>
-        <p>0</p>
-      </div>
-      <div class="st">
-        <p>Circle</p>
-        <p>Charisma</p>
-        <p>0</p>
-      </div>
-    </div>
-    <div id="skills">
-      <div class="skl">
-        <p>Circle</p>
-        <p>Acrobatics</p>
-        <p>0</p>
-      </div>
-      <div class="skl">
-        <p>Circle</p>
-        <p>Animal Handling</p>
-        <p>0</p>
-      </div>
-      <div class="skl">
-        <p>Circle</p>
-        <p>Arcana</p>
-        <p>0</p>
-      </div>
-      <div class="skl">
-        <p>Circle</p>
-        <p>Athletics</p>
-        <p>0</p>
-      </div>
-      <div class="skl">
-        <p>Circle</p>
-        <p>Deception</p>
-        <p>0</p>
-      </div>
-      <div class="skl">
-        <p>Circle</p>
-        <p>History</p>
-        <p>0</p>
-      </div>
-      <div class="skl">
-        <p>Circle</p>
-        <p>Insight</p>
-        <p>0</p>
-      </div>
-      <div class="skl">
-        <p>Circle</p>
-        <p>Intimidation</p>
-        <p>0</p>
-      </div>
-      <div class="skl">
-        <p>Circle</p>
-        <p>Investigation</p>
-        <p>0</p>
-      </div>
-      <div class="skl">
-        <p>Circle</p>
-        <p>Medicine</p>
-        <p>0</p>
-      </div>
-      <div class="skl">
-        <p>Circle</p>
-        <p>Nature</p>
-        <p>0</p>
-      </div>
-      <div class="skl">
-        <p>Circle</p>
-        <p>Perception</p>
-        <p>0</p>
-      </div>
-      <div class="skl">
-        <p>Circle</p>
-        <p>Performance</p>
-        <p>0</p>
-      </div>
-      <div class="skl">
-        <p>Circle</p>
-        <p>Persuasion</p>
-        <p>0</p>
-      </div>
-      <div class="skl">
-        <p>Circle</p>
-        <p>Religion</p>
-        <p>0</p>
-      </div>
-      <div class="skl">
-        <p>Circle</p>
-        <p>Sleight of Hand</p>
-        <p>0</p>
-      </div>
-      <div class="skl">
-        <p>Circle</p>
-        <p>Stealth</p>
-        <p>0</p>
-      </div>
-      <div class="skl">
-        <p>Circle</p>
-        <p>Survival</p>
-        <p>0</p>
+      <div class="box">
+        <p class="main">15</p>
+        <p class="in-box-p">Passive Wisdom (Perception)</p>
       </div>
     </div>
     <div id="charstate">
-      <div class="box">
-        <p>10</p>
-        <p>Armor Class</p>
+      <span class="three">
+        <div class="box">
+          <p class="main">10</p>
+          <p class="in-box-p">Armor Class</p>
+        </div>
+        <div class="box">
+          <p class="main">0</p>
+          <p class="in-box-p">Initiative</p>
+        </div>
+        <div class="box">
+          <p class="main">30</p>
+          <p class="in-box-p">Speed</p>
+        </div>
+      </span>
+      <span class="four">
+        <div class="box">
+          <p class="main">0 / 15</p>
+          <p class="in-box-p">Hit Points</p>
+        </div>
+        <div class="box">
+          <p class="main">0</p>
+          <p class="in-box-p">Temporary Hit Points</p>
+        </div>
+        <div class="box">
+          <p class="main">0/3</p>
+          <p class="in-box-p">Death Save: Success</p>
+        </div>
+        <div class="box">
+          <p class="main">0/3</p>
+          <p class="in-box-p">Death Save: Failure</p>
+        </div>
+      </span>
+    </div>
+    <div id="savingthrows">
+      <div class="st">
+        <h1>Saving Throws</h1>
       </div>
-      <div class="box">
-        <p>0</p>
-        <p>Initiative</p>
+      <div class="super_st">
+        <h1>Skills</h1>
       </div>
-      <div class="box">
-        <p>30</p>
-        <p>Speed</p>
+
+      <div class="st">
+        <div class="circle-filled"></div>
+        <p>Str Saving Throw</p>
+        <p class="plus">0</p>
       </div>
-      <div class="box">
-        <p>0 / 15</p>
-        <p>Hit Points</p>
+      <div class="st">
+        <div class="circle"></div>
+        <p>Acrobatics</p>
+        <p class="plus">0</p>
       </div>
-      <div class="box">
-        <p>0</p>
-        <p>Temporary Hit Points</p>
+      <div class="st">
+        <div class="circle"></div>
+        <p>Animal Handling</p>
+        <p class="plus">0</p>
       </div>
-      <div class="box">
-        <p>0/3</p>
-        <p>Death Save: Success</p>
+      <div class="st">
+        <div class="circle"></div>
+        <p>Arcana</p>
+        <p class="plus">0</p>
       </div>
-      <div class="box">
-        <p>0/3</p>
-        <p>Death Save: Failure</p>
+
+      <div class="st">
+        <div class="circle-filled"></div>
+        <p>Dex Saving Throw</p>
+        <p class="plus">0</p>
+      </div>
+      <div class="st">
+        <div class="circle"></div>
+        <p>Athletics</p>
+        <p class="plus">0</p>
+      </div>
+      <div class="st">
+        <div class="circle"></div>
+        <p>Deception</p>
+        <p class="plus">0</p>
+      </div>
+      <div class="st">
+        <div class="circle"></div>
+        <p>History</p>
+        <p class="plus">0</p>
+      </div>
+
+      <div class="st">
+        <div class="circle-filled"></div>
+        <p>Con Saving Throw</p>
+        <p class="plus">0</p>
+      </div>
+      <div class="st">
+        <div class="circle"></div>
+        <p>Insight</p>
+        <p class="plus">0</p>
+      </div>
+      <div class="st">
+        <div class="circle"></div>
+        <p>Intimidation</p>
+        <p class="plus">0</p>
+      </div>
+      <div class="st">
+        <div class="circle"></div>
+        <p>Investigation</p>
+        <p class="plus">0</p>
+      </div>
+
+      <div class="st">
+        <div class="circle-filled"></div>
+        <p>Int Saving Throw</p>
+        <p class="plus">0</p>
+      </div>
+      <div class="st">
+        <div class="circle"></div>
+        <p>Medicine</p>
+        <p class="plus">0</p>
+      </div>
+      <div class="st">
+        <div class="circle"></div>
+        <p>Nature</p>
+        <p class="plus">0</p>
+      </div>
+      <div class="st">
+        <div class="circle"></div>
+        <p>Perception</p>
+        <p class="plus">0</p>
+      </div>
+
+      <div class="st">
+        <div class="circle-filled"></div>
+        <p>Wsd Saving Throw</p>
+        <p class="plus">0</p>
+      </div>
+      <div class="st">
+        <div class="circle"></div>
+        <p>Performance</p>
+        <p class="plus">0</p>
+      </div>
+      <div class="st">
+        <div class="circle"></div>
+        <p>Persuasion</p>
+        <p class="plus">0</p>
+      </div>
+      <div class="st">
+        <div class="circle"></div>
+        <p>Religion</p>
+        <p class="plus">0</p>
+      </div>
+
+      <div class="st">
+        <div class="circle-filled"></div>
+        <p>Chr Saving Throw</p>
+        <p class="plus">0</p>
+      </div>
+      <div class="st">
+        <div class="circle"></div>
+        <p>Sleight of Hand</p>
+        <p class="plus">0</p>
+      </div>
+      <div class="st">
+        <div class="circle"></div>
+        <p>Stealth</p>
+        <p class="plus">0</p>
+      </div>
+      <div class="st">
+        <div class="circle"></div>
+        <p>Survival</p>
+        <p class="plus">0</p>
       </div>
     </div>
     <div id="attacks">
-      <h3>Attacks and Spellcasting</h3>
-      <table>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Hit/DC</th>
-            <th>Range</th>
-            <th>Damage/Type</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Small Knife</td>
-            <td>0</td>
-            <td>5</td>
-            <td>1d4 Piercing</td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="super-box">
+        <h1>Attacks and Spellcasting</h1>
+      </div>
+      <div class="super-box">
+        <table>
+          <thead>
+            <tr>
+              <th class="thirty">Name</th>
+              <th class="twenty">Hit/DC</th>
+              <th class="twenty">Range</th>
+              <th class="thirty">Damage/Type</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Small Knife</td>
+              <td>0</td>
+              <td>5</td>
+              <td>1d4 Piercing</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
     <div id="equipment">
-      <h3>Equipment</h3>
+      <div class="super-box">
+        <h1>Equipment</h1>
+      </div>
       <div id="money">
         <div class="cash">
           <p>CP</p>
-          <p>0</p>
+          <p class="plus">0</p>
         </div>
         <div class="cash">
           <p>SP</p>
-          <p>0</p>
+          <p class="plus">0</p>
         </div>
         <div class="cash">
           <p>EP</p>
-          <p>0</p>
+          <p class="plus">0</p>
         </div>
         <div class="cash">
           <p>GP</p>
-          <p>0</p>
+          <p class="plus">0</p>
         </div>
         <div class="cash">
           <p>PP</p>
-          <p>0</p>
+          <p class="plus">0</p>
         </div>
       </div>
-      <table>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Quantity</th>
-            <th>Weight</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Small Knife</td>
-            <td>1</td>
-            <td>0.5</td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="super-box">
+        <table>
+          <thead>
+            <tr>
+              <th class="three-three">Name</th>
+              <th class="three-three">Quantity</th>
+              <th class="three-three">Weight</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Small Knife</td>
+              <td>1</td>
+              <td>0.5</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
     <div id="spells">
-      <h3>Spellcasting</h3>
-      <div id="overall">
+      <div class="super-box">
+        <h1>Spellcasting</h1>
+      </div>
+      <div id="overall" class="three">
         <div class="box">
-          <p>Druid</p>
-          <p>Spellcasting Ability</p>
+          <p class="main">Druid</p>
+          <p class="in-box-p">Spellcasting Ability</p>
         </div>
         <div class="box">
-          <p>10</p>
-          <p>Spell Save DC</p>
+          <p class="main">10</p>
+          <p class="in-box-p">Spell Save DC</p>
         </div>
         <div class="box">
-          <p>0</p>
-          <p>Spell Attack Bonus</p>
+          <p class="main">0</p>
+          <p class="in-box-p">Spell Attack Bonus</p>
         </div>
       </div>
-      <div class="level">
-        <div class="spelllevel">0</div>
+      <div id="slots" class="three">
         <div class="box">
-          <p>Cantrips</p>
+          <p class="in-box-p">Lv 1</p>
+          <p class="main">0/2</p>
+          <p class="in-box-p">Slots Used/Total</p>
         </div>
-        <ul>
-          <li>
-            <p>Prepared</p>
-            <p>Dancing Lights</p>
-          </li>
-        </ul>
+        <div class="box">
+          <p class="in-box-p">Lv 2</p>
+          <p class="main">0/2</p>
+          <p class="in-box-p">Slots Used/Total</p>
+        </div>
+        <div class="box">
+          <p class="in-box-p">Lv 3</p>
+          <p class="main">0/0</p>
+          <p class="in-box-p">Slots Used/Total</p>
+        </div>
+        <div class="box">
+          <p class="in-box-p">Lv 4</p>
+          <p class="main">0/0</p>
+          <p class="in-box-p">Slots Used/Total</p>
+        </div>
+        <div class="box">
+          <p class="in-box-p">Lv 5</p>
+          <p class="main">0/0</p>
+          <p class="in-box-p">Slots Used/Total</p>
+        </div>
+        <div class="box">
+          <p class="in-box-p">Lv 6</p>
+          <p class="main">0/0</p>
+          <p class="in-box-p">Slots Used/Total</p>
+        </div>
+        <div class="box">
+          <p class="in-box-p">Lv 7</p>
+          <p class="main">0/0</p>
+          <p class="in-box-p">Slots Used/Total</p>
+        </div>
+        <div class="box">
+          <p class="in-box-p">Lv 8</p>
+          <p class="main">0/0</p>
+          <p class="in-box-p">Slots Used/Total</p>
+        </div>
+        <div class="box">
+          <p class="in-box-p">Lv 9</p>
+          <p class="main">0/0</p>
+          <p class="in-box-p">Slots Used/Total</p>
+        </div>
       </div>
-      <div class="level">
-        <div class="spelllevel">1</div>
-        <div class="box">
-          <p>0/2</p>
-          <p>Slots Used/Total</p>
-        </div>
-        <ul>
-          <li>
-            <p>Prepared</p>
-            <p>Animal Friendship</p>
-          </li>
-        </ul>
-      </div>
-      <div class="level">
-        <div class="spelllevel">2</div>
-        <div class="box">
-          <p>0/0</p>
-          <p>Slots Used/Total</p>
-        </div>
-        <ul>
-        </ul>
-      </div>
-      <div class="level">
-        <div class="spelllevel">3</div>
-        <div class="box">
-          <p>0/0</p>
-          <p>Slots Used/Total</p>
-        </div>
-        <ul>
-        </ul>
-      </div>
-      <div class="level">
-        <div class="spelllevel">4</div>
-        <div class="box">
-          <p>0/0</p>
-          <p>Slots Used/Total</p>
-        </div>
-        <ul>
-        </ul>
-      </div>
-      <div class="level">
-        <div class="spelllevel">5</div>
-        <div class="box">
-          <p>0/0</p>
-          <p>Slots Used/Total</p>
-        </div>
-        <ul>
-        </ul>
-      </div>
-      <div class="level">
-        <div class="spelllevel">6</div>
-        <div class="box">
-          <p>0/0</p>
-          <p>Slots Used/Total</p>
-        </div>
-        <ul>
-        </ul>
-      </div>
-      <div class="level">
-        <div class="spelllevel">7</div>
-        <div class="box">
-          <p>0/0</p>
-          <p>Slots Used/Total</p>
-        </div>
-        <ul>
-        </ul>
-      </div>
-      <div class="level">
-        <div class="spelllevel">8</div>
-        <div class="box">
-          <p>0/0</p>
-          <p>Slots Used/Total</p>
-        </div>
-        <ul>
-        </ul>
-      </div>
-      <div class="level">
-        <div class="spelllevel">9</div>
-        <div class="box">
-          <p>0/0</p>
-          <p>Slots Used/Total</p>
-        </div>
-        <ul>
-        </ul>
+      <div id="spell-list" class="super-box">
+        <table>
+          <thead>
+            <tr>
+              <th class="twenty">Prepared</th>
+              <th class="forty">Name</th>
+              <th class="forty">Level</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><div class="circle"></div></td>
+              <td>Produce Flame</td>
+              <td>0</td>
+            </tr>
+            <tr>
+              <td><div class="circle"></div></td>
+              <td>Animal Friendship</td>
+              <td>1</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
     <div id="texts">
       <div class="txt">
-        <h3>Proficiencies and Languages</h3>
+        <h1>Proficiencies and Languages</h1>
         <p>Enter text here.</p>
       </div>
       <div class="txt">
-        <h3>Features and Traits</h3>
+        <h1>Features and Traits</h1>
         <p>Enter text here.</p>
       </div>
       <div class="txt">
-        <h3>Personality</h3>
+        <h1>Personality</h1>
         <p>Enter text here.</p>
       </div>
       <div class="txt">
-        <h3>Backstory</h3>
+        <h1>Backstory</h1>
         <p>Enter text here.</p>
       </div>
       <div class="txt">
-        <h3>Appearance</h3>
+        <h1>Appearance</h1>
         <p>Enter text here.</p>
       </div>
     </div>
