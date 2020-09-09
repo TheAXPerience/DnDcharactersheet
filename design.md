@@ -31,15 +31,11 @@ This section will describe the database models that will need to be created.
 ### User Data
 
 The information present for the user will be very minimal, and just enough for the user to login and recover their account.
-That means the following data will be present:
-
-* Username [CharField]
-* Password [CharField]
-* Email Address [CharField] (for account recovery)
+Django has a built-in user system that I willhave to delve into at a later point.
 
 ### Character Information
 
-The information present for the character model will be based on the Dungeons and Dragon's character sheet
+The information present for the character model will be based on the Dungeons and Dragon's character sheet.
 This means that the following data needs to be present:
 
 * Character Name [CharField]
@@ -98,7 +94,6 @@ Notice that some of these are lists of things rather than singular objects thems
 We can break down the model even more with the following:
 
 #### Character
-We will remove information that relate to the character involving a large amount of text pertaining to background and story, rather than character essentials.
 
 Includes:
 * Character Name [CharField]
@@ -158,6 +153,9 @@ Includes:
 * Spellcasting Ability [CharField]
 * Spell Attack Bonus [IntegerField]
 * Spell Save DC [IntegerField]
+* (For each lv from 1 to 9)
+* Used Slots [IntegerField]
+* Total Slots [IntegerField]
 * Proficiencies and Languages [TextField]
 * Features and Traits [TextField]
 * Personality [TextField] (include ideals, bonds, and flaws here)
@@ -166,20 +164,15 @@ Includes:
 Note: Personality and Background may not be available at first.
 
 #### Equipment
+
 Includes:
 * Character [ForeignKey]
 * Equipment [CharField]
 * Quantity [IntegerField]
 * Weight [FloatField]
 
-#### SpellSlots
-Includes:
-* Character [ForeignKey]
-* Level [IntegerField] (0 - 9)
-* Used Slots [IntegerField]
-* Total Slots [IntegerField]
-
 #### AttacksSpellcasting
+
 Includes:
 * Character [ForeignKey]
 * Attack Name [CharField]
@@ -188,6 +181,7 @@ Includes:
 * Damage/Type [CharField]
 
 #### CharacterSpells
+
 Includes:
 * Character [ForeignKey]
 * Spell Name [CharField]
@@ -198,15 +192,40 @@ Includes:
 
 The website will comprise of the following types of pages:
 1. Index page, which will list characters and their creators
-2. Submission page, where users can post their cahracters
+2. Submission page, where users can post their characters
 3. Character page, where users can view characters
 4. Edit page, which appears like submission but with information automatically filled out
+
+### Character Page
+The character page must feature all aspects of a D&D character that the user fills out.
+There should also be a button to allow editing of the character by redirecting to another web page.
+Finally, there should be a bar at the top to handle user login, return to the main page, and any other features to be determined.
+
+### Index Page
+The index page is the main page, which consists of a list of characters that can be navigated.
+There should also be a button to allow users to create a brand new character to submit.
+
+Optional: Allow the user to look at only characters that they have made.
+Optional: Allow the user to look up certain characters by either their name, creator, or class.
+Optional: Allow the user to delete a character.
+
+### Submission Page
+The submission page, otherwise referred to as the new character page, should instantiate a new character upon loading and allow the user to fill out a form to add desired attributes.
+The character should not be inserted into the database until the user submits the form.
+However, the backend will also have to deal with locking due to the possibility of users trying to submit characters at the same exact time.
+
+### Edit Page
+The edit page will resemble the submission page, but will have character information already filled out, as the character already exists in the database.
+Furthermore, more intricate locking would be desired in the case of two users submitting edits to the same character.
+Though conceptually, this should not be allowed, it is possible that Django allows a single user to be logged in at two different locations.
+This means that locking would be necessary to prevent overwrites from happening at the same time on the same character.
 
 ## Milestones
 * Set up a Django project and an app for the D&D pages (<1 hour)
 * Set up the models for the databases, based on a D&D character sheet. (3-4 hours to get right)
 * Prototype character pages (2-3 days)
 * Set up the character pages, showing the information stored in the database (several days)
+* Set up index page to show a list of characters (including multiple pages in case of too many characters) (2-3 days)
 * Prototype submission page in HTML (2-3 days)
 * Set up a submission page that takes in a user's character's information (several days)
 * Set up character editing (several days + research)
