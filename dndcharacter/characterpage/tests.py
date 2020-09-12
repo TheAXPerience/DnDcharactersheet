@@ -159,6 +159,11 @@ class CharacterCreationTestcase(TestCase):
             sloh=1,
             stea=1,
             surv=1,
+            cp=5,
+            sp=5,
+            ep=5,
+            gp=5,
+            pp=5,
             acro_prf=True,
             anha_prf=True,
             arca_prf=True,
@@ -228,12 +233,6 @@ class CharacterCreationTestcase(TestCase):
         self.assertEqual(c.movement, 30)
         self.assertEqual(c.pass_wsd, 0)
         
-        self.assertEqual(c.cp, 0)
-        self.assertEqual(c.sp, 0)
-        self.assertEqual(c.ep, 0)
-        self.assertEqual(c.gp, 0)
-        self.assertEqual(c.pp, 0)
-        
         self.assertEqual(c.spell_abl, 'n/a')
         self.assertEqual(c.spl_atk, 0)
         self.assertEqual(c.spl_save, 0)
@@ -245,21 +244,22 @@ class CharacterCreationTestcase(TestCase):
 
         stats = c.getStats()
         for k in stats:
-            x, y, z = stats[k]
-            self.assertEqual(x, 10)
-            self.assertEqual(y, 0)
-            self.assertEqual(z, False)
+            self.assertEqual(k['stat'], 10)
+            self.assertEqual(k['bonus'], 0)
 
-        skills = c.getSkills()
+        skills = c.getStSkills()
         for k in skills:
-            a, b = skills[k]
-            self.assertEqual(a, 0)
-            self.assertEqual(b, False)
+            self.assertEqual(k['bonus'], 0)
+            self.assertEqual(k['prf'], False)
+
+        coins = c.getMoney()
+        for k in coins:
+            self.assertEqual(k['value'], 0)
 
         slots = c.getSpellSlots()
-        for a, b in slots:
-            self.assertEqual(a, 0)
-            self.assertEqual(b, 0)        
+        for k in slots:
+            self.assertEqual(k['used'], 0)
+            self.assertEqual(k['total'], 0)        
 
     # django does truncation on the database level for max_length
     # so I need to enforce it in other areas I believe
@@ -323,11 +323,9 @@ class CharacterCreationTestcase(TestCase):
         self.assertEqual(c.movement, 25)
         self.assertEqual(c.pass_wsd, 13)
         
-        self.assertEqual(c.cp, 1)
-        self.assertEqual(c.sp, 1)
-        self.assertEqual(c.ep, 1)
-        self.assertEqual(c.gp, 1)
-        self.assertEqual(c.pp, 1)
+        coins = c.getMoney()
+        for k in coins:
+            self.assertEqual(k['value'], 1)
         
         self.assertEqual(c.spell_abl, 'Charisma')
         self.assertEqual(c.spl_atk, 4)
@@ -340,27 +338,24 @@ class CharacterCreationTestcase(TestCase):
 
         stats = c.getStats()
         for k in stats:
-            x, y, z = stats[k]
-            self.assertEqual(x, 15)
-            self.assertEqual(y, 1)
-            self.assertEqual(z, True)
+            self.assertEqual(k['stat'], 15)
+            self.assertEqual(k['bonus'], 2)
 
-        skills = c.getSkills()
+        skills = c.getStSkills()
         for k in skills:
-            a, b = skills[k]
-            self.assertEqual(a, 1)
-            self.assertEqual(b, True)
+            self.assertEqual(k['bonus'], 1)
+            self.assertEqual(k['prf'], True)
 
         slots = c.getSpellSlots()
-        for a, b in slots:
-            self.assertEqual(a, 1)
-            self.assertEqual(b, 3)
+        for k in slots:
+            self.assertEqual(k['used'], 1)
+            self.assertEqual(k['total'], 3)
         
         # check if changes save
-        c.strength = 11
-        c.dexterity = 13
+        c.strength = 6
+        c.dexterity = 14
         c.constitution = 12
-        c.intelligence = 11
+        c.intelligence = 8
         c.wisdom = 16
         c.charisma = 18
         c.bg = 'Noble'
@@ -373,17 +368,31 @@ class CharacterCreationTestcase(TestCase):
         d = Character.objects.get(name='Pan Bastian Edge')
         self.assertEquals(c.id, d.id)
         self.assertEquals(d.name, 'Pan Bastian Edge')
-        self.assertEquals(d.strength, 11)
-        self.assertEquals(d.dexterity, 13)
-        self.assertEquals(d.constitution, 12)
-        self.assertEquals(d.intelligence, 11)
-        self.assertEquals(d.wisdom, 16)
-        self.assertEquals(d.charisma, 18)
         self.assertEquals(d.bg, 'Noble')
         self.assertEquals(d.gp, 15)
         self.assertEquals(d.inspiration, False)
         self.assertEquals(d.alignment, 'Chaotic Evil')
         self.assertEquals(d.appearance, 'Darkwing Duck *brrr brrr br brbrbrbrbrbrbrrrrrr')
+
+        stats = d.getStats()
+        self.assertEquals(stats[0]['name'], 'Strength')
+        self.assertEquals(stats[1]['name'], 'Dexterity')
+        self.assertEquals(stats[2]['name'], 'Constitution')
+        self.assertEquals(stats[3]['name'], 'Intelligence')
+        self.assertEquals(stats[4]['name'], 'Wisdom')
+        self.assertEquals(stats[5]['name'], 'Charisma')
+        self.assertEquals(stats[0]['stat'], 6)
+        self.assertEquals(stats[1]['stat'], 14)
+        self.assertEquals(stats[2]['stat'], 12)
+        self.assertEquals(stats[3]['stat'], 8)
+        self.assertEquals(stats[4]['stat'], 16)
+        self.assertEquals(stats[5]['stat'], 18)
+        self.assertEquals(stats[0]['bonus'], -2)
+        self.assertEquals(stats[1]['bonus'], 2)
+        self.assertEquals(stats[2]['bonus'], 1)
+        self.assertEquals(stats[3]['bonus'], -1)
+        self.assertEquals(stats[4]['bonus'], 3)
+        self.assertEquals(stats[5]['bonus'], 4)
 
     def test_get_same_creator(self):
         ch = list(Character.objects.filter(creator='kevin'))
@@ -424,40 +433,45 @@ class CharacterCreationTestcase(TestCase):
         a_stats = a.getStats()
         b_stats = b.getStats()
         for k in a_stats:
-            ax, ay, az = a_stats[k]
-            bx, by, bz = b_stats[k]
-            self.assertEqual(ax, 10)
-            self.assertEqual(ay, 0)
-            self.assertEqual(az, False)
-            self.assertEqual(bx, 15)
-            self.assertEqual(by, 1)
-            self.assertEqual(bz, True)
+            self.assertEqual(k['stat'], 10)
+            self.assertEqual(k['bonus'], 0)
+        for j in b_stats:
+            self.assertEqual(j['stat'], 15)
+            self.assertEqual(j['bonus'], 2)
 
     def test_get_skills(self):
         a = Character.objects.get(name='henry')
         b = Character.objects.get(name='omfg')
-        a_stats = a.getSkills()
-        b_stats = b.getSkills()
+        a_stats = a.getStSkills()
+        b_stats = b.getStSkills()
         for k in a_stats:
-            ax, ay = a_stats[k]
-            bx, by = b_stats[k]
-            self.assertEqual(ax, 0)
-            self.assertEqual(ay, False)
-            self.assertEqual(bx, 1)
-            self.assertEqual(by, True)
+            self.assertEqual(k['bonus'], 0)
+            self.assertEqual(k['prf'], False)
+        for j in b_stats:
+            self.assertEqual(j['bonus'], 1)
+            self.assertEqual(j['prf'], True)
 
     def test_get_slots(self):
         a = Character.objects.get(name='henry')
         b = Character.objects.get(name='omfg')
         a_stats = a.getSpellSlots()
         b_stats = b.getSpellSlots()
-        for k in range(0, len(a_stats)):
-            ax, ay = a_stats[k]
-            bx, by = b_stats[k]
-            self.assertEqual(ax, 0)
-            self.assertEqual(ay, 0)
-            self.assertEqual(bx, 1)
-            self.assertEqual(by, 3)
+        for k in a_stats:
+            self.assertEqual(k['used'], 0)
+            self.assertEqual(k['total'], 0)
+        for j in b_stats:
+            self.assertEqual(j['used'], 1)
+            self.assertEqual(j['total'], 3)
+
+    def test_get_money(self):
+        a = Character.objects.get(name='henry')
+        b = Character.objects.get(name='omfg')
+        a_stats = a.getMoney()
+        b_stats = b.getMoney()
+        for k in a_stats:
+            self.assertEqual(k['value'], 0)
+        for j in b_stats:
+            self.assertEqual(j['value'], 5)
 
 class EquipmentTests(TestCase):
     def setUp(self):
