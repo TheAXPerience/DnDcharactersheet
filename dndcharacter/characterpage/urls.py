@@ -5,6 +5,7 @@ from . import views
 app_name = 'cpage'
 urlpatterns = [
   path('', views.index, name='index'),
+  path('page/<int:page>', views.page, name='page_no'),
   path('character/<int:character_id>/', views.character, name='char_page'),
   path('edit/<int:character_id>/', views.edit, name='char_edit'),
   path('create/', views.create, name='create'),

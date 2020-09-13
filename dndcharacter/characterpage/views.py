@@ -5,11 +5,49 @@ from .models import Character, Equipment, AttackSpell, CharSpells
 
 # Create your views here.
 def index(request):
-    ret = '<a href="create/">Create</a><br/>'
+    chars = list(Character.objects.all())[:25]
+    pages = [1]
+    if len(chars) > 25:
+        pages.push(2)
+    if len(chars) > 50:
+        pages.push(3)
+    lst = int((len(chars) - 1) / 25) + 1
+    context = {
+        'characters': chars,
+        'prv': 1,
+        'nxt': min(lst, 2),
+        'pages': pages,
+        'lst': lst,
+        'no_one': 1,
+        'no_two': min(25, len(chars)),
+        'no_three': len(chars)
+    }
+    return render(request, 'characterpage/index.html', context)
+
+def page(request, page):
+    if page < 1:
+        return page(request, 1)
     chars = list(Character.objects.all())
-    for c in chars:
-        ret = ret + '<a href="character/' + str(c.id) + '">' + c.name + ' and ' + c.creator + '</a><br/>'
-    return HttpResponse(ret);
+    no_one = 1 + (page - 1) * 25
+    no_two = page * 25
+    lst = int((len(chars) - 1) / 25) + 1
+    pages = list(range(page-2, page+3))
+    while pages[0] < 1:
+        pages.pop(0)
+    while pages[-1] > lst:
+        pages.pop()
+
+    context = {
+        'characters': chars,
+        'prv': max(1, page - 1),
+        'nxt': min(lst, page + 1),
+        'pages': pages,
+        'lst': lst,
+        'no_one': no_one,
+        'no_two': min(no_two, len(chars)),
+        'no_three': len(chars)
+    }
+    return render(request, 'characterpage/index.html', context)
 
 def character(request, character_id):
     c = get_object_or_404(Character, pk=character_id)
@@ -28,7 +66,7 @@ def character(request, character_id):
         'eqp': e,
         'spls': s
     }
-    return render(request, 'characterpage/character.html', context);
+    return render(request, 'characterpage/character.html', context)
 
 def edit(request, character_id):
     return HttpResponse(str(character_id) + ' edit mode<br/><a href="send/">Submit</a>')

@@ -1,0 +1,57 @@
+body {
+  font-size: 20px;
+  font-family: sans-serif;
+  color: black;
+}
+
+.edits {
+  width: 100%;
+}
+
+.edits button {
+  font-size: 20px;
+}
+
+.table {
+  margin: 8px auto;
+  width: 100%;
+}
+
+.table table {
+  background-color: black;
+  width: 100%;
+}
+
+.table th {
+  background-color: white;
+  width: 15%;
+  font-size: 20px;
+}
+
+.table td {
+  background-color: white;
+  font-size: 18px;
+  text-align: center;
+}
+
+.table td button {
+  font-size: 16px;
+  width: 100%;
+}
+
+.bottom {
+  margin: 8px auto;
+  text-align: center;
+}
+
+.bottom button {
+  font-size: 18px;
+  height: 30px;
+  width: 60px;
+  margin: 0px auto;
+  display: inline-block;
+}
+
+.bottom p {
+  margin: 8px;
+}

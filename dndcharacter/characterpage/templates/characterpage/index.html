@@ -1,0 +1,52 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="{% static 'characterpage/index.css' %}">
+    <title>D&D Character Sheets</title>
+  </head>
+  <body>
+    <div class="edits">
+      <button type="button" name="mine">Show My Characters</button>
+      <button onclick="location.href='/create/'" type="button" name="create">Create a Character</button>
+    </div>
+    <div class="table">
+      <table>
+        <thead>
+          <tr>
+            <th>Last Modified</th>
+            <th>Name</th>
+            <th>Creator</th>
+            <th>Class</th>
+            <th>Race</th>
+            <th>Link</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for c in characters %}
+            <tr>
+              <td>{{ c.date }}</td>
+              <td>{{ c.name }}</td>
+              <td>{{ c.creator }}</td>
+              <td>{{ c.char_class }} (LV {{ c.level }})</td>
+              <td>{{ c.race }}</td>
+              <td><button type="button" name="link{{ forloop.counter }}" onclick="location.href='/character/{{ c.id }}'">Link</button></td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <div class="bottom">
+      <button onclick="location.href='/page/1'" type="button" name="first">&lt&lt</button>
+      <button onclick="location.href='/page/{{ prv }}'" type="button" name="prev">&lt</button>
+      {% for p in pages %}
+        <button onclick="location.href='/page/{{ p }}'" type="button" name="button">{{ p }}</button>
+      {% endfor %}
+      <button onclick="location.href='/page/{{ nxt }}'" type="button" name="next">&gt</button>
+      <button onclick="location.href='/page/{{ lst }}'" type="button" name="last">&gt&gt</button>
+      <p>Showing results {{ no_one }}-{{ no_two }} of {{ no_three }}</p>
+    </div>
+  </body>
+</html>
