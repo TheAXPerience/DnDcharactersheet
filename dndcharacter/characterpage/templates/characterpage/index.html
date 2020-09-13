@@ -27,7 +27,7 @@
         <tbody>
           {% for c in characters %}
             <tr>
-              <td>{{ c.date }}</td>
+              <td>{{ c.date|date:"m/d/y" }} {{ c.date|time:"g:i A"}}</td>
               <td>{{ c.name }}</td>
               <td>{{ c.creator }}</td>
               <td>{{ c.char_class }} (LV {{ c.level }})</td>

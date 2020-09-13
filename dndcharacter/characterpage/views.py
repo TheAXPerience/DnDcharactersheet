@@ -5,15 +5,15 @@ from .models import Character, Equipment, AttackSpell, CharSpells
 
 # Create your views here.
 def index(request):
-    chars = list(Character.objects.all())[:25]
+    chars = list(Character.objects.all().order_by('-date'))
     pages = [1]
     if len(chars) > 25:
-        pages.push(2)
+        pages.append(2)
     if len(chars) > 50:
-        pages.push(3)
+        pages.append(3)
     lst = int((len(chars) - 1) / 25) + 1
     context = {
-        'characters': chars,
+        'characters': chars[:25],
         'prv': 1,
         'nxt': min(lst, 2),
         'pages': pages,
@@ -27,9 +27,9 @@ def index(request):
 def page(request, page):
     if page < 1:
         return page(request, 1)
-    chars = list(Character.objects.all())
+    chars = list(Character.objects.all().order_by('-date'))
     no_one = 1 + (page - 1) * 25
-    no_two = page * 25
+    no_two = min(page * 25, len(chars))
     lst = int((len(chars) - 1) / 25) + 1
     pages = list(range(page-2, page+3))
     while pages[0] < 1:
@@ -38,13 +38,13 @@ def page(request, page):
         pages.pop()
 
     context = {
-        'characters': chars,
+        'characters': chars[no_one-1:no_two],
         'prv': max(1, page - 1),
         'nxt': min(lst, page + 1),
         'pages': pages,
         'lst': lst,
         'no_one': no_one,
-        'no_two': min(no_two, len(chars)),
+        'no_two': no_two,
         'no_three': len(chars)
     }
     return render(request, 'characterpage/index.html', context)

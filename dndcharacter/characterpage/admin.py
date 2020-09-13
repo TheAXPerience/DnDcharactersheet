@@ -15,6 +15,7 @@ class CSInline(admin.TabularInline):
     extra = 0
 
 class CharacterAdmin(admin.ModelAdmin):
+    list_display = ('name', 'creator', 'char_class', 'level', 'race')
     inlines = [EquipInline, ASInline, CSInline]
 
 admin.site.register(Character, CharacterAdmin)
