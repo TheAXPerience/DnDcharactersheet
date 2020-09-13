@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="index.css">
+    <title>D&D Character Sheets</title>
+  </head>
+  <body>
+    <div class="edits">
+      <button type="button" name="mine">Show My Characters</button>
+      <button type="button" name="create">Create a Character</button>
+    </div>
+    <div class="table">
+      <table>
+        <thead>
+          <tr>
+            <th>Last Modified</th>
+            <th>Name</th>
+            <th>Creator</th>
+            <th>Class</th>
+            <th>Race</th>
+            <th>Link</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1/1/2020</td>
+            <td>Yes</td>
+            <td>Me</td>
+            <td>Bard</td>
+            <td>Orc</td>
+            <td><button type="button" name="link1" onclick="location.href='/character/1'">Link</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="bottom">
+      <button onclick="location.href='/page/1'" type="button" name="first">&lt&lt</button>
+      <button onclick="location.href='/page/1'" type="button" name="prev">&lt</button>
+      <button onclick="location.href='/page/1'" type="button" name="button">1</button>
+      <button onclick="location.href='/page/2'" type="button" name="button">2</button>
+      <button onclick="location.href='/page/3'" type="button" name="button">3</button>
+      <button onclick="location.href='/page/4'" type="button" name="button">4</button>
+      <button onclick="location.href='/page/5'" type="button" name="button">5</button>
+      <button onclick="location.href='/page/2'" type="button" name="next">&gt</button>
+      <button onclick="location.href='/page/5'" type="button" name="last">&gt&gt</button>
+      <p>Showing results 1-1 of 1</p>
+    </div>
+  </body>
+</html>
