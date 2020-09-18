@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="style.css">
+    <title>Character Example</title>
+  </head>
+  <body>
+    <form class="" action="mailto:alvin_xu@hotmail.com" method="post">
+      <div id="header">
+        <div class="header-box">
+          <input type="text" name="charname" value="n/a">
+        </div>
+        <div id="basics">
+          <div class="stat">
+            <h1>Level</h1>
+            <input type="number" name="level" value=1>
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th>Class</th>
+                <th>Race</th>
+                <th>Player</th>
+                <th>Background</th>
+                <th>Alignment</th>
+                <th>Experience</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><input type="text" name="charclass" value="n/a"></td>
+                <td><input type="text" name="charrace" value="n/a"></td>
+                <td><input type="text" name="player" value="n/a"></td>
+                <td><input type="text" name="background" value="n/a"></td>
+                <td><input type="text" name="alignment" value="n/a"></td>
+                <td><input type="number" name="exp" value=0></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div id="stats">
+        <div class="stat">
+          <h1>Strength</h1>
+          <p class="main"><input type="number" name="str" value=10></p>
+          <p class="plus">+0</p>
+        </div>
+        <div class="stat">
+          <h1>Dexterity</h1>
+          <p class="main"><input type="number" name="dex" value=10></p>
+          <p class="plus">+0</p>
+        </div>
+        <div class="stat">
+          <h1>Constitution</h1>
+          <p class="main"><input type="number" name="con" value=10></p>
+          <p class="plus">+0</p>
+        </div>
+        <div class="stat">
+          <h1>Intelligence</h1>
+          <p class="main"><input type="number" name="int" value=10></p>
+          <p class="plus">+0</p>
+        </div>
+        <div class="stat">
+          <h1>Wisdom</h1>
+          <p class="main"><input type="number" name="wsd" value=10></p>
+          <p class="plus">+0</p>
+        </div>
+        <div class="stat">
+          <h1>Charisma</h1>
+          <p class="main"><input type="number" name="chr" value=10></p>
+          <p class="plus">+0</p>
+        </div>
+      </div>
+      <div id="charstate">
+        <span class="three">
+          <div id="inspiration" class="box">
+            <input type="checkbox" name="inspiration">
+            <p>Inspiration</p>
+          </div>
+          <div class="box">
+            <p class="main"><input type="number" name="prf" value=0></p>
+            <p class="in-box-p">Proficiency Bonus</p>
+          </div>
+          <div class="box">
+            <p class="main"><input type="number" name="passwsd" value=0></p>
+            <p class="in-box-p">Passive Wisdom (Perception)</p>
+          </div>
+        </span>
+        <span class="three">
+          <div class="box">
+            <p class="main"><input type="number" name="armor" value=0></p>
+            <p class="in-box-p">Armor Class</p>
+          </div>
+          <div class="box">
+            <p class="main"><input type="number" name="init" value=0></p>
+            <p class="in-box-p">Initiative</p>
+          </div>
+          <div class="box">
+            <p class="main"><input type="number" name="move" value=0></p>
+            <p class="in-box-p">Speed</p>
+          </div>
+        </span>
+        <span class="four">
+          <div class="box">
+            <p class="main hp"><input type="number" name="currhp" value=0> / <input type="number" name="maxhp" value=0></p>
+            <p class="in-box-p">Hit Points</p>
+          </div>
+          <div class="box">
+            <p class="main hp"><input type="number" name="temphp" value=0></p>
+            <p class="in-box-p">Temporary Hit Points</p>
+          </div>
+          <div class="box">
+            <p class="main hp"><input type="number" name="dss" value=0> / 3</p>
+            <p class="in-box-p">Death Save: Success</p>
+          </div>
+          <div class="box">
+            <p class="main hp"><input type="number" name="dsf" value=0> / 3</p>
+            <p class="in-box-p">Death Save: Failure</p>
+          </div>
+        </span>
+      </div>
+      <div id="savingthrows">
+        <div class="st">
+          <h1>Saving Throws</h1>
+        </div>
+        <div class="super_st">
+          <h1>Skills</h1>
+        </div>
+
+        <div class="st">
+          <input class="checkbox" type="checkbox" name="strst_prf" checked>
+          <p>Str Saving Throw</p><br/>
+          <input type="number" name="strst" value=0>
+        </div>
+        <div class="st">
+          <input class="checkbox" type="checkbox" name="acro_prf" checked>
+          <p>Acrobatics</p><br/>
+          <input type="number" name="acro" value=0>
+        </div>
+        <div class="st">
+          <input class="checkbox" type="checkbox" name="anha_rf" checked>
+          <p>Animal Handling</p><br/>
+          <input type="number" name="anha" value=0>
+        </div>
+        <div class="st">
+          <input class="checkbox" type="checkbox" name="arca_prf" checked>
+          <p>Arcana</p><br/>
+          <input type="number" name="arca" value=0>
+        </div>
+
+        <div class="st">
+          <input class="checkbox" type="checkbox" name="dexst_prf" checked>
+          <p>Dex Saving Throw</p><br/>
+          <input type="number" name="dexst" value=0>
+        </div>
+        <div class="st">
+          <input class="checkbox" type="checkbox" name="athl_prf" checked>
+          <p>Athletics</p><br/>
+          <input type="number" name="athl" value=0>
+        </div>
+        <div class="st">
+          <input class="checkbox" type="checkbox" name="decp_prf" checked>
+          <p>Deception</p><br/>
+          <input type="number" name="decp" value=0>
+        </div>
+        <div class="st">
+          <input class="checkbox" type="checkbox" name="hist_prf" checked>
+          <p>History</p><br/>
+          <input type="number" name="hist" value=0>
+        </div>
+
+        <div class="st">
+          <input class="checkbox" type="checkbox" name="const_prf" checked>
+          <p>Con Saving Throw</p><br/>
+          <input type="number" name="const" value=0>
+        </div>
+        <div class="st">
+          <input class="checkbox" type="checkbox" name="insi_prf" checked>
+          <p>Insight</p><br/>
+          <input type="number" name="insi" value=0>
+        </div>
+        <div class="st">
+          <input class="checkbox" type="checkbox" name="intm_prf" checked>
+          <p>Intimidation</p><br/>
+          <input type="number" name="intm" value=0>
+        </div>
+        <div class="st">
+          <input class="checkbox" type="checkbox" name="invs_prf" checked>
+          <p>Investigation</p><br/>
+          <input type="number" name="invs" value=0>
+        </div>
+
+        <div class="st">
+          <input class="checkbox" type="checkbox" name="intst_prf" checked>
+          <p>Int Saving Throw</p><br/>
+          <input type="number" name="intst" value=0>
+        </div>
+        <div class="st">
+          <input class="checkbox" type="checkbox" name="medi_prf" checked>
+          <p>Medicine</p><br/>
+          <input type="number" name="medi" value=0>
+        </div>
+        <div class="st">
+          <input class="checkbox" type="checkbox" name="natr_prf" checked>
+          <p>Nature</p><br/>
+          <input type="number" name="natr" value=0>
+        </div>
+        <div class="st">
+          <input class="checkbox" type="checkbox" name="perc_prf" checked>
+          <p>Perception</p><br/>
+          <input type="number" name="perc" value=0>
+        </div>
+
+        <div class="st">
+          <input class="checkbox" type="checkbox" name="wsdst_prf" checked>
+          <p>Wsd Saving Throw</p><br/>
+          <input type="number" name="wsdst" value=0>
+        </div>
+        <div class="st">
+          <input class="checkbox" type="checkbox" name="perf_prf" checked>
+          <p>Performance</p><br/>
+          <input type="number" name="perf" value=0>
+        </div>
+        <div class="st">
+          <input class="checkbox" type="checkbox" name="pers_prf" checked>
+          <p>Persuasion</p><br/>
+          <input type="number" name="pers" value=0>
+        </div>
+        <div class="st">
+          <input class="checkbox" type="checkbox" name="rlgn_prf" checked>
+          <p>Religion</p><br/>
+          <input type="number" name="rlgn" value=0>
+        </div>
+
+        <div class="st">
+          <input class="checkbox" type="checkbox" name="chrst_prf" checked>
+          <p>Chr Saving Throw</p><br/>
+          <input type="number" name="chrst" value=0>
+        </div>
+        <div class="st">
+          <input class="checkbox" type="checkbox" name="sloh_prf" checked>
+          <p>Sleight of Hand</p><br/>
+          <input type="number" name="sloh" value=0>
+        </div>
+        <div class="st">
+          <input class="checkbox" type="checkbox" name="stea_prf" checked>
+          <p>Stealth</p><br/>
+          <input type="number" name="stea" value=0>
+        </div>
+        <div class="st">
+          <input class="checkbox" type="checkbox" name="surv_prf" checked>
+          <p>Survival</p><br/>
+          <input type="number" name="surv" value=0>
+        </div>
+      </div>
+      <div id="attacks">
+        <div class="super-box">
+          <h1>Attacks and Spellcasting</h1>
+        </div>
+        <div class="super-box">
+          <table id="as_table">
+            <thead>
+              <tr>
+                <th class="thirty">Name</th>
+                <th class="twenty">Hit/DC</th>
+                <th class="twenty">Range</th>
+                <th class="thirty">Damage/Type</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><input type="text" name="as1_name" value="n/a"></td>
+                <td><input type="text" name="as1_hit" value="n/a"></td>
+                <td><input type="number" name="as1_range" value=5></td>
+                <td><input type="text" name="as1_damage" value="n/a"></td>
+              </tr>
+            </tbody>
+          </table>
+          <button type="button" name="add_as">+</button>
+          <button type="button" name="rm_as">-</button>
+        </div>
+      </div>
+      <div id="equipment">
+        <div class="super-box">
+          <h1>Equipment</h1>
+        </div>
+        <div id="money">
+          <div class="cash">
+            <p>CP</p>
+            <input type="number" name="cp" value=0>
+          </div>
+          <div class="cash">
+            <p>SP</p>
+            <input type="number" name="sp" value=0>
+          </div>
+          <div class="cash">
+            <p>EP</p>
+            <input type="number" name="ep" value=0>
+          </div>
+          <div class="cash">
+            <p>GP</p>
+            <input type="number" name="gp" value=0>
+          </div>
+          <div class="cash">
+            <p>PP</p>
+            <input type="number" name="pp" value=0>
+          </div>
+        </div>
+        <div class="super-box">
+          <table id="eq_table">
+            <thead>
+              <tr>
+                <th class="three-three">Name</th>
+                <th class="three-three">Quantity</th>
+                <th class="three-three">Weight</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><input type="text" name="eq1_name" value="n/a"></td>
+                <td><input type="number" name="eq1_quan" value=0></td>
+                <td><input type="number" name="eq1_weight" value=0></td>
+              </tr>
+            </tbody>
+          </table>
+          <button type="button" name="add_eq">+</button>
+          <button type="button" name="rm_eq">-</button>
+        </div>
+      </div>
+      <div id="spells">
+        <div class="super-box">
+          <h1>Spellcasting</h1>
+        </div>
+        <div id="overall" class="three">
+          <div class="box">
+            <p class="main"><input type="text" name="spl_abl" value="n/a"></p>
+            <p class="in-box-p">Spellcasting Ability</p>
+          </div>
+          <div class="box">
+            <p class="main"><input type="number" name="spl_save" value=0></p>
+            <p class="in-box-p">Spell Save DC</p>
+          </div>
+          <div class="box">
+            <p class="main"><input type="number" name="spl_atk" value=0></p>
+            <p class="in-box-p">Spell Attack Bonus</p>
+          </div>
+        </div>
+        <div id="slots" class="three">
+          <div class="box">
+            <p class="in-box-p">Lv 1</p>
+            <p class="main hp"><input type="number" name="lv1_used" value=0> / <input type="number" name="lv1_ttl" value=0></p>
+            <p class="in-box-p">Slots Used/Total</p>
+          </div>
+          <div class="box">
+            <p class="in-box-p">Lv 2</p>
+            <p class="main hp"><input type="number" name="lv2_used" value=0> / <input type="number" name="lv2_ttl" value=0></p>
+            <p class="in-box-p">Slots Used/Total</p>
+          </div>
+          <div class="box">
+            <p class="in-box-p">Lv 3</p>
+            <p class="main hp"><input type="number" name="lv3_used" value=0> / <input type="number" name="lv3_ttl" value=0></p>
+            <p class="in-box-p">Slots Used/Total</p>
+          </div>
+          <div class="box">
+            <p class="in-box-p">Lv 4</p>
+            <p class="main hp"><input type="number" name="lv4_used" value=0> / <input type="number" name="lv4_ttl" value=0></p>
+            <p class="in-box-p">Slots Used/Total</p>
+          </div>
+          <div class="box">
+            <p class="in-box-p">Lv 5</p>
+            <p class="main hp"><input type="number" name="lv5_used" value=0> / <input type="number" name="lv5_ttl" value=0></p>
+            <p class="in-box-p">Slots Used/Total</p>
+          </div>
+          <div class="box">
+            <p class="in-box-p">Lv 6</p>
+            <p class="main hp"><input type="number" name="lv6_used" value=0> / <input type="number" name="lv6_ttl" value=0></p>
+            <p class="in-box-p">Slots Used/Total</p>
+          </div>
+          <div class="box">
+            <p class="in-box-p">Lv 7</p>
+            <p class="main hp"><input type="number" name="lv7_used" value=0> / <input type="number" name="lv7_ttl" value=0></p>
+            <p class="in-box-p">Slots Used/Total</p>
+          </div>
+          <div class="box">
+            <p class="in-box-p">Lv 8</p>
+            <p class="main hp"><input type="number" name="lv8_used" value=0> / <input type="number" name="lv8_ttl" value=0></p>
+            <p class="in-box-p">Slots Used/Total</p>
+          </div>
+          <div class="box">
+            <p class="in-box-p">Lv 9</p>
+            <p class="main hp"><input type="number" name="lv9_used" value=0> / <input type="number" name="lv9_ttl" value=0></p>
+            <p class="in-box-p">Slots Used/Total</p>
+          </div>
+        </div>
+        <div id="spell-list" class="super-box">
+          <table id="spl_lst">
+            <thead>
+              <tr>
+                <th class="twenty">Prepared</th>
+                <th class="forty">Name</th>
+                <th class="forty">Level</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><input type="checkbox" name="spl1_prep"></td>
+                <td><input type="text" name="spl1_name" value="n/a"></td>
+                <td><input type="number" name="spl1_lv" value=0></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div id="texts">
+        <div class="txt">
+          <h1>Proficiencies and Languages</h1>
+          <textarea name="prf_lang" rows="8">n/a</textarea>
+        </div>
+        <div class="txt">
+          <h1>Features and Traits</h1>
+          <textarea name="ft_trt" rows="8">n/a</textarea>
+        </div>
+        <div class="txt">
+          <h1>Personality</h1>
+          <textarea name="personality" rows="8">n/a</textarea>
+        </div>
+        <div class="txt">
+          <h1>Backstory</h1>
+          <textarea name="backstory" rows="8">n/a</textarea>
+        </div>
+        <div class="txt">
+          <h1>Appearance</h1>
+          <textarea name="appearance" rows="8">n/a</textarea>
+        </div>
+      </div>
+      <div>
+        <input id="submit" type="submit" name="submit">
+      </div>
+    </form>
+  </body>
+</html>
