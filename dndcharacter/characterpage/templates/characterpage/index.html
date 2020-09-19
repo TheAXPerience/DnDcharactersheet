@@ -5,12 +5,21 @@
   <head>
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="{% static 'characterpage/index.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'characterpage/top.css' %}">
     <title>D&D Character Sheets</title>
   </head>
   <body>
-    <div class="edits">
-      <button type="button" name="mine">Show My Characters</button>
-      <button onclick="location.href='/create/'" type="button" name="create">Create a Character</button>
+    <div class="top">
+      <div class="user">
+        To be continued...
+      </div>
+      <div class="logo">
+        <h1><a href="/">Dungeons and Dragons</a></h1>
+      </div>
+      <div class="edits">
+        <button type="button" name="mine">Show My Characters</button>
+        <button onclick="location.href='/create/'" type="button" name="create">Create a Character</button>
+      </div>
     </div>
     <div class="table">
       <table>

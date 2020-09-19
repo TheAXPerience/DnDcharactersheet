@@ -4,14 +4,6 @@ body {
   color: black;
 }
 
-.edits {
-  width: 100%;
-}
-
-.edits button {
-  font-size: 20px;
-}
-
 .table {
   margin: 8px auto;
   width: 100%;
@@ -37,6 +29,7 @@ body {
 .table td button {
   font-size: 16px;
   width: 100%;
+  background-color: white;
 }
 
 .bottom {

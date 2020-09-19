@@ -5,9 +5,22 @@
   <head>
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="{% static 'characterpage/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'characterpage/top.css' %}">
     <title>Character Example</title>
   </head>
   <body>
+    <div class="top">
+      <div class="user">
+        To be continued...
+      </div>
+      <div class="logo">
+        <h1><a href="/">Dungeons and Dragons</a></h1>
+      </div>
+      <div class="edits">
+        <button onclick="location.href='/edit/{{character.id}}'" type="button" name="edit">Edit Character</button>
+        <button onclick="location.href='/edit/'" type="button" name="delete">Delete Character</button>
+      </div>
+    </div>
     <div id="header">
       <div class="header-box">
         <h1>{{ character.name }}</h1>
@@ -26,7 +39,7 @@
           </thead>
           <tbody>
             <tr>
-              <td>{{ character.char_class }} ({{ character.level }})</td>
+              <td>{{ character.char_class }} (Lv. {{ character.level }})</td>
               <td>{{ character.race }}</td>
               <td>{{ character.creator }}</td>
               <td>{{ character.bg }}</td>
@@ -46,21 +59,21 @@
         </div>
       {% endfor %}
     </div>
-    <div id="indies">
-      <div id="inspiration" class="box">
-        <div class={% if character.inspiration %}"filled-in"{% else %}"fill-in"{% endif %}></div>
-        <p>Inspiration</p>
-      </div>
-      <div class="box">
-        <p class="main">{% if character.proficiency_bonus >= 0 %}+{% endif %}{{ character.proficiency_bonus }}</p>
-        <p class="in-box-p">Proficiency Bonus</p>
-      </div>
-      <div class="box">
-        <p class="main">{{ character.pass_wsd }}</p>
-        <p class="in-box-p">Passive Wisdom (Perception)</p>
-      </div>
-    </div>
     <div id="charstate">
+      <span class="three">
+        <div id="inspiration" class="box">
+          <div class={% if character.inspiration %}"fill-in fill"{% else %}"fill-in"{% endif %}></div>
+          <p>Inspiration</p>
+        </div>
+        <div class="box">
+          <p class="main">{% if character.proficiency_bonus >= 0 %}+{% endif %}{{ character.proficiency_bonus }}</p>
+          <p class="in-box-p">Proficiency Bonus</p>
+        </div>
+        <div class="box">
+          <p class="main">{{ character.pass_wsd }}</p>
+          <p class="in-box-p">Passive Wisdom (Perception)</p>
+        </div>
+      </span>
       <span class="three">
         <div class="box">
           <p class="main">{{ character.ac }}</p>
@@ -103,8 +116,8 @@
       </div>
       {% for s in character.getStSkills %}
         <div class="st">
-          <div class={% if s.prf %}"circle-filled"{% else %}"circle"{% endif %}></div>
-          <p>{{ s.name }}</p>
+          <div class={% if s.prf %}"circle fill"{% else %}"circle"{% endif %}></div>
+          <p>{{ s.name }}</p><br/>
           <p class="plus">{% if s.bonus >= 0 %}+{% endif %}{{ s.bonus }}</p>
         </div>
       {% endfor %}
@@ -213,7 +226,7 @@
           <tbody>
             {% for s in spls %}
               <tr>
-                <td><div class={% if s.prepared %}"circle-filled"{% else %}"circle"{% endif %}></div></td>
+                <td><div class={% if s.prepared %}"circle fill"{% else %}"circle"{% endif %}></div></td>
                 <td>{{ s.name }}</td>
                 <td>{{ s.level }}</td>
               </tr>
