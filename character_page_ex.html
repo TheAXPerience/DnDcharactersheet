@@ -3,6 +3,8 @@
   <head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="style.css">
+    <script src="jquery-3.5.1.js"></script>
+    <script src="character.js"></script>
     <title>Character Example</title>
   </head>
   <body>
@@ -257,10 +259,11 @@
         <table>
           <thead>
             <tr>
-              <th class="thirty">Name</th>
+              <th class="twenty-five">Name</th>
               <th class="twenty">Hit/DC</th>
               <th class="twenty">Range</th>
-              <th class="thirty">Damage/Type</th>
+              <th class="twenty-five">Damage/Type</th>
+              <th class="ten">Delete</th>
             </tr>
           </thead>
           <tbody>
@@ -269,8 +272,12 @@
               <td>0</td>
               <td>5</td>
               <td>1d4 Piercing</td>
+              <td><button type="button" name="delete" class="delete-as">Delete</button></td>
             </tr>
           </tbody>
+          <tr>
+            <td colspan=5><button type="button" name="add-as" id="add-as">Add an attack</button></td>
+          </tr>
         </table>
       </div>
     </div>
@@ -304,9 +311,10 @@
         <table>
           <thead>
             <tr>
-              <th class="three-three">Name</th>
-              <th class="three-three">Quantity</th>
-              <th class="three-three">Weight</th>
+              <th class="thirty">Name</th>
+              <th class="thirty">Quantity</th>
+              <th class="thirty">Weight</th>
+              <th class="ten">Delete</th>
             </tr>
           </thead>
           <tbody>
@@ -314,8 +322,12 @@
               <td>Small Knife</td>
               <td>1</td>
               <td>0.5</td>
+              <td><button type="button" name="delete" class="delete-eq">Delete</button></td>
             </tr>
           </tbody>
+          <tr>
+            <td colspan=4><button type="button" name="add-eq" id="add-eq">Add equipment</button></td>
+          </tr>
         </table>
       </div>
     </div>
@@ -389,8 +401,9 @@
           <thead>
             <tr>
               <th class="twenty">Prepared</th>
-              <th class="forty">Name</th>
-              <th class="forty">Level</th>
+              <th class="three-five">Name</th>
+              <th class="three-five">Level</th>
+              <th class="ten">Delete</th>
             </tr>
           </thead>
           <tbody>
@@ -398,13 +411,18 @@
               <td><div class="circle"></div></td>
               <td>Produce Flame</td>
               <td>0</td>
+              <td><button type="button" name="delete" class="delete-sp">Delete</button></td>
             </tr>
             <tr>
               <td><div class="circle"></div></td>
               <td>Animal Friendship</td>
               <td>1</td>
+              <td><button type="button" name="delete" class="delete-sp">Delete</button></td>
             </tr>
           </tbody>
+          <tr>
+            <td colspan=4><button type="button" name="add-spell" id="add-sp">Add a spell</button></td>
+          </tr>
         </table>
       </div>
     </div>
