@@ -181,13 +181,36 @@ $().ready(function() {
 
   $('.delete-as').click(function() {
     $(this).parent().parent().remove();
+    // remove from model
   });
 
   $('.delete-eq').click(function() {
     $(this).parent().parent().remove();
+    // remove from model
   });
 
   $('.delete-sp').click(function() {
     $(this).parent().parent().remove();
+    // remove from model
   });
+
+  $('[contentEditable="true"]').keypress(function(e) {
+    let x = event.charCode || event.keyCode;
+    if (isNaN(String.fromCharCode(e.which)) && x != 46) e.preventDefault();
+    return e.which != 13;
+  });
+
+  $('[contentEditable="true"]')
+    .focus(function() {
+      $(this).data('initialText', $(this).html());
+    }).blur(function() {
+      if ($(this).data('initialText') !== $(this).html()) {
+        /// replace change
+        if ($(this).text() === '') {
+          $(this).text($(this).data('initialText'));
+        } else {
+          // submit
+        }
+      }
+    });
 });
