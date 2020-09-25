@@ -2,6 +2,7 @@ from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from .models import Character, Equipment, AttackSpell, CharSpells
+import json
 
 # Create your views here.
 def index(request):
@@ -70,6 +71,61 @@ def character(request, character_id):
 
 def edit(request, character_id):
     return HttpResponse(str(character_id) + ' edit mode<br/><a href="send/">Submit</a>')
+
+def submit_as(request, character_id):
+    if request.is_ajax() and request.method == 'POST':
+        # get json data
+        data = json.loads(request.body)
+        # get character
+        c = get_object_or_404(Character, pk=character_id)
+        if data['type'] == 'add':
+            # check if name and character pair already exists
+            atks = c.atks.filter(name=data['name'])
+            if len(atks) > 0:
+                return HttpResponse("Already exists")
+            # make and save new attack/spell
+            a = AttackSpell(character=c, name=data['name'], hit_dc=data['hit'], r=data['range'], damage=data['damage'])
+            a.save()
+        else:
+            AttackSpell.objects.filter(name=data['name'], character=c).delete()
+    return HttpResponse("OK")
+
+def submit_eq(request, character_id):
+    if request.is_ajax() and request.method == 'POST':
+        # get json data
+        data = json.loads(request.body)
+        # get character
+        c = get_object_or_404(Character, pk=character_id)
+        if data['type'] == 'add':
+            # check if name and character pair already exists
+            eqs = c.equips.filter(name=data['name'])
+            if len(eqs) > 0:
+                return HttpResponse("Already exists")
+            # make and save new attack/spell
+            e = Equipment(character=c, name=data['name'], quantity=data['quantity'], weight=data['weight'])
+            e.save()
+        else:
+            Equipment.objects.filter(name=data['name'], character=c).delete()
+    return HttpResponse("OK")
+
+def submit_sp(request, character_id):
+    if request.is_ajax() and request.method == 'POST':
+        # get json data
+        data = json.loads(request.body)
+        # get character
+        c = get_object_or_404(Character, pk=character_id)
+        if data['type'] == 'add':
+            # check if name and character pair already exists
+            spl = c.spls.filter(name=data['name'])
+            if len(spl) > 0:
+                return HttpResponse("Already exists")
+            # make and save new attack/spell
+            p = (data['prepared'] == 'true')
+            s = CharSpells(character=c, name=data['name'], level=data['level'], prepared=p)
+            s.save()
+        else:
+            CharSpells.objects.filter(name=data['name'], character=c).delete()
+    return HttpResponse("OK")
 
 def create(request):
     return HttpResponse('create mode')

@@ -1,12 +1,15 @@
 {% load static %}
 
 <!DOCTYPE html>
+{% csrf_token %}
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="{% static 'characterpage/style.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'characterpage/top.css' %}">
-    <title>Character Example</title>
+    <script src="{% static 'characterpage/jquery-3.5.1.js' %}"></script>
+    <script src="{% static 'characterpage/character.js' %}"></script>
+    <title>{{ character.name }}</title>
   </head>
   <body>
     <div class="top">
@@ -90,19 +93,19 @@
       </span>
       <span class="four">
         <div class="box">
-          <p class="main">{{ character.curr_hp }} / {{ character.max_hp }}</p>
+          <p class="main"><span contentEditable="true" name="curr_hp">{{ character.curr_hp }}</span> / {{ character.max_hp }}</p>
           <p class="in-box-p">Hit Points</p>
         </div>
         <div class="box">
-          <p class="main">{{ character.temp_hp }}</p>
+          <p class="main" contentEditable="true" name="temp_hp">{{ character.temp_hp }}</p>
           <p class="in-box-p">Temporary Hit Points</p>
         </div>
         <div class="box">
-          <p class="main">{{ character.ds_success }} / 3</p>
+          <p class="main"><span contentEditable="true" name="ds_success">{{ character.ds_success }}</span> / 3</p>
           <p class="in-box-p">Death Save: Success</p>
         </div>
         <div class="box">
-          <p class="main">{{ character.ds_failure }} / 3</p>
+          <p class="main"><span contentEditable="true" name="ds_failure">{{ character.ds_failure }}</span> / 3</p>
           <p class="in-box-p">Death Save: Failure</p>
         </div>
       </span>
@@ -126,30 +129,35 @@
       <div class="super-box">
         <h1>Attacks and Spellcasting</h1>
       </div>
-      {% if atk %}
       <div class="super-box">
         <table>
           <thead>
             <tr>
-              <th class="thirty">Name</th>
+              <th class="twenty-five">Name</th>
               <th class="twenty">Hit/DC</th>
               <th class="twenty">Range</th>
-              <th class="thirty">Damage/Type</th>
+              <th class="twenty-five">Damage/Type</th>
+              <th class="ten">Delete</th>
             </tr>
           </thead>
           <tbody>
-            {% for a in atk %}
-              <tr>
-                <td>{{ a.name }}</td>
-                <td>{{ a.hit_dc }}</td>
-                <td>{{ a.r }} ft</td>
-                <td>{{ a.damage }}</td>
-              </tr>
-            {% endfor %}
+            {% if atk %}
+              {% for a in atk %}
+                <tr>
+                  <td>{{ a.name }}</td>
+                  <td>{{ a.hit_dc }}</td>
+                  <td>{{ a.r }} ft</td>
+                  <td>{{ a.damage }}</td>
+                  <td><button type="button" name="delete" class="delete-as">Delete</button></td>
+                </tr>
+              {% endfor %}
+            {% endif %}
           </tbody>
+          <tr>
+            <td colspan=5><button type="button" name="add-as" id="add-as">Add an attack</button></td>
+          </tr>
         </table>
       </div>
-      {% endif %}
     </div>
     <div id="equipment">
       <div class="super-box">
@@ -159,32 +167,37 @@
         {% for m in character.getMoney %}
           <div class="cash">
             <p>{{ m.name }}</p>
-            <p class="plus">{{ m.value }}</p>
+            <p class="plus" contentEditable="true" name="{{ m.name }}">{{ m.value }}</p>
           </div>
         {% endfor %}
       </div>
-      {% if eqp %}
       <div class="super-box">
         <table>
           <thead>
             <tr>
-              <th class="three-three">Name</th>
-              <th class="three-three">Quantity</th>
-              <th class="three-three">Weight</th>
+              <th class="thirty">Name</th>
+              <th class="thirty">Quantity</th>
+              <th class="thirty">Weight</th>
+              <th class="ten">Delete</th>
             </tr>
           </thead>
           <tbody>
-            {% for e in eqp %}
-              <tr>
-                <td>{{ e.name }}</td>
-                <td>{{ e.quantity }}</td>
-                <td>{{ e.weight }}</td>
-              </tr>
-            {% endfor %}
+            {% if eqp %}
+              {% for e in eqp %}
+                <tr>
+                  <td>{{ e.name }}</td>
+                  <td>{{ e.quantity }}</td>
+                  <td>{{ e.weight }}</td>
+                  <td><button type="button" name="delete" class="delete-eq">Delete</button></td>
+                </tr>
+              {% endfor %}
+            {% endif %}
           </tbody>
+          <tr>
+            <td colspan=4><button type="button" name="add-eq" id="add-eq">Add equipment</button></td>
+          </tr>
         </table>
       </div>
-      {% endif %}
     </div>
     <div id="spells">
       <div class="super-box">
@@ -206,35 +219,42 @@
       </div>
       <div id="slots" class="three">
         {% for s in character.getSpellSlots %}
+          {% if s.total > 0 %}
           <div class="box">
             <p class="in-box-p">Lv {{ s.lv }}</p>
-            <p class="main">{{ s.used }} / {{ s.total }}</p>
+            <p class="main"><span contentEditable="true" name="lv{{ s.lv }}_used">{{ s.used }}</span> / {{ s.total }}</p>
             <p class="in-box-p">Slots Used/Total</p>
           </div>
+          {% endif %}
         {% endfor %}
       </div>
-      {% if spls %}
       <div id="spell-list" class="super-box">
         <table>
           <thead>
             <tr>
               <th class="twenty">Prepared</th>
-              <th class="forty">Name</th>
-              <th class="forty">Level</th>
+              <th class="three-five">Name</th>
+              <th class="three-five">Level</th>
+              <th class="ten">Delete</th>
             </tr>
           </thead>
           <tbody>
-            {% for s in spls %}
-              <tr>
-                <td><div class={% if s.prepared %}"circle fill"{% else %}"circle"{% endif %}></div></td>
-                <td>{{ s.name }}</td>
-                <td>{{ s.level }}</td>
-              </tr>
-            {% endfor %}
+            {% if spls %}
+              {% for s in spls %}
+                <tr>
+                  <td><div class={% if s.prepared %}"circle fill"{% else %}"circle"{% endif %}></div></td>
+                  <td>{{ s.name }}</td>
+                  <td>{{ s.level }}</td>
+                  <td><button type="button" name="delete" class="delete-sp">Delete</button></td>
+                </tr>
+              {% endfor %}
+            {% endif %}
           </tbody>
+          <tr>
+            <td colspan=4><button type="button" name="add-spell" id="add-sp">Add a spell</button></td>
+          </tr>
         </table>
       </div>
-      {% endif %}
     </div>
     <div id="texts">
       <div class="txt">

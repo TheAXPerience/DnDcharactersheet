@@ -240,8 +240,12 @@ body div {
   width: 30%;
 }
 
-.three-three {
-  width: 33%;
+.three-five {
+  width: 35%;
+}
+
+.twenty-five {
+  width: 25%;
 }
 
 .twenty {
@@ -250,6 +254,10 @@ body div {
 
 .forty {
   width: 40%;
+}
+
+.ten {
+  width: 10%;
 }
 
 #equipment .box {

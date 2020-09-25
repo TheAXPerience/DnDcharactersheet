@@ -224,7 +224,7 @@ class Equipment(models.Model):
 
 class AttackSpell(models.Model):
     character = models.ForeignKey(Character, null=True, on_delete=models.CASCADE, related_name='atks')
-    name = models.CharField('attack name', max_length=30, default='n/a')
+    name = models.CharField('name', max_length=30, default='n/a')
     hit_dc = models.CharField('hit/dc', max_length=10, default='0')
     r = models.IntegerField('range', default=5)
     damage = models.CharField('damage/type', max_length=20, default='n/a')
