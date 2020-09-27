@@ -1,0 +1,387 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="{% static 'characterpage/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'characterpage/top.css' %}">
+    <title>Character Example</title>
+  </head>
+  <body>
+    <div class="top">
+      <div class="user">
+        To be continued...
+      </div>
+      <div class="logo">
+        <h1><a href="/">Dungeons and Dragons</a></h1>
+      </div>
+      <div class="edits">
+        <button onclick="location.href='/character/{{character.id}}'" type="button" name="edit">Back to Character</button>
+        <button onclick="location.href='/edit/{{character.id}}'" type="button" name="delete">Delete Character</button>
+      </div>
+    </div>
+    <form class="" action="send/" method="post">
+      {% csrf_token %}
+      <div id="header">
+        <div class="header-box">
+          <input type="text" name="charname" value="{{ character.name }}">
+        </div>
+        <div id="basics">
+          <div class="stat">
+            <h1>Level</h1>
+            <input type="number" name="level" value={{ character.level }}>
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th>Class</th>
+                <th>Race</th>
+                <th>Player</th>
+                <th>Background</th>
+                <th>Alignment</th>
+                <th>Experience</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><input type="text" name="charclass" value="{{ character.char_class }}"></td>
+                <td><input type="text" name="charrace" value="{{ character.race }}"></td>
+                <td><input type="text" name="player" value="{{ character.creator }}"></td>
+                <td><input type="text" name="background" value="{{ character.bg }}"></td>
+                <td><input type="text" name="alignment" value="{{ character.alignment }}"></td>
+                <td><input type="number" name="exp" value={{ character.exp }}></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div id="stats">
+        <div class="stat">
+          <h1>Strength</h1>
+          <p class="main"><input type="number" name="str" value={{ character.strength }}></p>
+        </div>
+        <div class="stat">
+          <h1>Dexterity</h1>
+          <p class="main"><input type="number" name="dex" value={{ character.dexterity }}></p>
+        </div>
+        <div class="stat">
+          <h1>Constitution</h1>
+          <p class="main"><input type="number" name="con" value={{ character.constitution }}></p>
+        </div>
+        <div class="stat">
+          <h1>Intelligence</h1>
+          <p class="main"><input type="number" name="int" value={{ character.intelligence }}></p>
+        </div>
+        <div class="stat">
+          <h1>Wisdom</h1>
+          <p class="main"><input type="number" name="wsd" value={{ character.wisdom }}></p>
+        </div>
+        <div class="stat">
+          <h1>Charisma</h1>
+          <p class="main"><input type="number" name="chr" value={{ character.charisma }}></p>
+        </div>
+      </div>
+      <div id="charstate">
+        <span class="three">
+          <div id="inspiration" class="box">
+            <input type="checkbox" name="inspiration" {% if character.inspiration %} checked {% endif %}>
+            <p>Inspiration</p>
+          </div>
+          <div class="box">
+            <p class="main"><input type="number" name="prf" value={{ character.proficiency_bonus }}></p>
+            <p class="in-box-p">Proficiency Bonus</p>
+          </div>
+          <div class="box">
+            <p class="main"><input type="number" name="passwsd" value={{ character.pass_wsd }}></p>
+            <p class="in-box-p">Passive Wisdom (Perception)</p>
+          </div>
+        </span>
+        <span class="three">
+          <div class="box">
+            <p class="main"><input type="number" name="armor" value={{ character.ac }}></p>
+            <p class="in-box-p">Armor Class</p>
+          </div>
+          <div class="box">
+            <p class="main"><input type="number" name="init" value={{ character.initiative }}></p>
+            <p class="in-box-p">Initiative</p>
+          </div>
+          <div class="box">
+            <p class="main"><input type="number" name="move" value={{ character.movement }}></p>
+            <p class="in-box-p">Speed</p>
+          </div>
+        </span>
+        <span class="four">
+          <div class="box">
+            <p class="main hp"><input type="number" name="currhp" value={{ character.curr_hp }}> / <input type="number" name="maxhp" value={{ character.max_hp }}></p>
+            <p class="in-box-p">Hit Points</p>
+          </div>
+          <div class="box">
+            <p class="main hp"><input type="number" name="temphp" value={{ character.temp_hp }}></p>
+            <p class="in-box-p">Temporary Hit Points</p>
+          </div>
+          <div class="box">
+            <p class="main hp"><input type="number" name="dss" value={{ character.ds_success }}> / 3</p>
+            <p class="in-box-p">Death Save: Success</p>
+          </div>
+          <div class="box">
+            <p class="main hp"><input type="number" name="dsf" value={{ character.ds_failure }}> / 3</p>
+            <p class="in-box-p">Death Save: Failure</p>
+          </div>
+        </span>
+      </div>
+      <div id="savingthrows">
+        <div class="st">
+          <h1>Saving Throws</h1>
+        </div>
+        <div class="super_st">
+          <h1>Skills</h1>
+        </div>
+
+        <div class="st">
+          <input class="checkbox" type="checkbox" name="strst_prf" {% if character.str_st_prof %} checked {% endif %}>
+          <p>Str Saving Throw</p><br/>
+          <input type="number" name="strst" value={{ character.str_st }}>
+        </div>
+        <div class="st">
+          <input class="checkbox" type="checkbox" name="acro_prf" {% if character.acro_prf %} checked {% endif %}>
+          <p>Acrobatics</p><br/>
+          <input type="number" name="acro" value={{ character.acro }}>
+        </div>
+        <div class="st">
+          <input class="checkbox" type="checkbox" name="anha_prf" {% if character.anha_prf %} checked {% endif %}>
+          <p>Animal Handling</p><br/>
+          <input type="number" name="anha" value={{ character.anha }}>
+        </div>
+        <div class="st">
+          <input class="checkbox" type="checkbox" name="arca_prf" {% if character.arca_prf %} checked {% endif %}>
+          <p>Arcana</p><br/>
+          <input type="number" name="arca" value={{ character.arca }}>
+        </div>
+
+        <div class="st">
+          <input class="checkbox" type="checkbox" name="dexst_prf" {% if character.dex_st_prof %} checked {% endif %}>
+          <p>Dex Saving Throw</p><br/>
+          <input type="number" name="dexst" value={{ character.dex_st }}>
+        </div>
+        <div class="st">
+          <input class="checkbox" type="checkbox" name="athl_prf" {% if character.athl_prf %} checked {% endif %}>
+          <p>Athletics</p><br/>
+          <input type="number" name="athl" value={{ character.athl }}>
+        </div>
+        <div class="st">
+          <input class="checkbox" type="checkbox" name="decp_prf" {% if character.decp_prf %} checked {% endif %}>
+          <p>Deception</p><br/>
+          <input type="number" name="decp" value={{ character.decp }}>
+        </div>
+        <div class="st">
+          <input class="checkbox" type="checkbox" name="hist_prf" {% if character.hist_prf %} checked {% endif %}>
+          <p>History</p><br/>
+          <input type="number" name="hist" value={{ character.hist }}>
+        </div>
+
+        <div class="st">
+          <input class="checkbox" type="checkbox" name="const_prf" {% if character.con_st_prof %} checked {% endif %}>
+          <p>Con Saving Throw</p><br/>
+          <input type="number" name="const" value={{ character.con_st }}>
+        </div>
+        <div class="st">
+          <input class="checkbox" type="checkbox" name="insi_prf" {% if character.insi_prf %} checked {% endif %}>
+          <p>Insight</p><br/>
+          <input type="number" name="insi" value={{ character.insi }}>
+        </div>
+        <div class="st">
+          <input class="checkbox" type="checkbox" name="intm_prf" {% if character.intm_prf %} checked {% endif %}>
+          <p>Intimidation</p><br/>
+          <input type="number" name="intm" value={{ character.intm }}>
+        </div>
+        <div class="st">
+          <input class="checkbox" type="checkbox" name="invs_prf" {% if character.invs_prf %} checked {% endif %}>
+          <p>Investigation</p><br/>
+          <input type="number" name="invs" value={{ character.invs }}>
+        </div>
+
+        <div class="st">
+          <input class="checkbox" type="checkbox" name="intst_prf" {% if character.int_st_prof %} checked {% endif %}>
+          <p>Int Saving Throw</p><br/>
+          <input type="number" name="intst" value={{ character.int_st }}>
+        </div>
+        <div class="st">
+          <input class="checkbox" type="checkbox" name="medi_prf" {% if character.medi_prf %} checked {% endif %}>
+          <p>Medicine</p><br/>
+          <input type="number" name="medi" value={{ character.medi }}>
+        </div>
+        <div class="st">
+          <input class="checkbox" type="checkbox" name="natr_prf" {% if character.natr_prf %} checked {% endif %}>
+          <p>Nature</p><br/>
+          <input type="number" name="natr" value={{ character.natr }}>
+        </div>
+        <div class="st">
+          <input class="checkbox" type="checkbox" name="perc_prf" {% if character.perc_prf %} checked {% endif %}>
+          <p>Perception</p><br/>
+          <input type="number" name="perc" value={{ character.perc }}>
+        </div>
+
+        <div class="st">
+          <input class="checkbox" type="checkbox" name="wsdst_prf" {% if character.wsd_st_prof %} checked {% endif %}>
+          <p>Wsd Saving Throw</p><br/>
+          <input type="number" name="wsdst" value={{ character.wsd_st }}>
+        </div>
+        <div class="st">
+          <input class="checkbox" type="checkbox" name="perf_prf" {% if character.perf_prf %} checked {% endif %}>
+          <p>Performance</p><br/>
+          <input type="number" name="perf" value={{ character.perf }}>
+        </div>
+        <div class="st">
+          <input class="checkbox" type="checkbox" name="pers_prf" {% if character.pers_prf %} checked {% endif %}>
+          <p>Persuasion</p><br/>
+          <input type="number" name="pers" value={{ character.pers }}>
+        </div>
+        <div class="st">
+          <input class="checkbox" type="checkbox" name="rlgn_prf" {% if character.rlgn_prf %} checked {% endif %}>
+          <p>Religion</p><br/>
+          <input type="number" name="rlgn" value={{ character.rlgn }}>
+        </div>
+
+        <div class="st">
+          <input class="checkbox" type="checkbox" name="chrst_prf" {% if character.chr_st_prof %} checked {% endif %}>
+          <p>Chr Saving Throw</p><br/>
+          <input type="number" name="chrst" value={{ character.chr_st }}>
+        </div>
+        <div class="st">
+          <input class="checkbox" type="checkbox" name="sloh_prf" {% if character.sloh_prf %} checked {% endif %}>
+          <p>Sleight of Hand</p><br/>
+          <input type="number" name="sloh" value={{ character.sloh }}>
+        </div>
+        <div class="st">
+          <input class="checkbox" type="checkbox" name="stea_prf" {% if character.stea_prf %} checked {% endif %}>
+          <p>Stealth</p><br/>
+          <input type="number" name="stea" value={{ character.stea }}>
+        </div>
+        <div class="st">
+          <input class="checkbox" type="checkbox" name="surv_prf" {% if character.surv_prf %} checked {% endif %}>
+          <p>Survival</p><br/>
+          <input type="number" name="surv" value={{ character.surv }}>
+        </div>
+      </div>
+      <div id="equipment">
+        <div class="super-box">
+          <h1>Equipment</h1>
+        </div>
+        <div id="money">
+          <div class="cash">
+            <p>CP</p>
+            <input type="number" name="cp" value={{ character.cp }}>
+          </div>
+          <div class="cash">
+            <p>SP</p>
+            <input type="number" name="sp" value={{ character.sp }}>
+          </div>
+          <div class="cash">
+            <p>EP</p>
+            <input type="number" name="ep" value={{ character.ep }}>
+          </div>
+          <div class="cash">
+            <p>GP</p>
+            <input type="number" name="gp" value={{ character.gp }}>
+          </div>
+          <div class="cash">
+            <p>PP</p>
+            <input type="number" name="pp" value={{ character.pp }}>
+          </div>
+        </div>
+      </div>
+      <div id="spells">
+        <div class="super-box">
+          <h1>Spellcasting</h1>
+        </div>
+        <div id="overall" class="three">
+          <div class="box">
+            <p class="main"><input type="text" name="spl_abl" value="{{ character.spell_abl }}"></p>
+            <p class="in-box-p">Spellcasting Ability</p>
+          </div>
+          <div class="box">
+            <p class="main"><input type="number" name="spl_save" value={{ character.spl_save }}></p>
+            <p class="in-box-p">Spell Save DC</p>
+          </div>
+          <div class="box">
+            <p class="main"><input type="number" name="spl_atk" value={{ character.spl_atk }}></p>
+            <p class="in-box-p">Spell Attack Bonus</p>
+          </div>
+        </div>
+        <div id="slots" class="three">
+          <div class="box">
+            <p class="in-box-p">Lv 1</p>
+            <p class="main hp"><input type="number" name="lv1_used" value={{ character.lv1_used }}> / <input type="number" name="lv1_ttl" value={{ character.lv1_slots }}></p>
+            <p class="in-box-p">Slots Used/Total</p>
+          </div>
+          <div class="box">
+            <p class="in-box-p">Lv 2</p>
+            <p class="main hp"><input type="number" name="lv2_used" value={{ character.lv2_used }}> / <input type="number" name="lv2_ttl" value={{ character.lv2_slots }}></p>
+            <p class="in-box-p">Slots Used/Total</p>
+          </div>
+          <div class="box">
+            <p class="in-box-p">Lv 3</p>
+            <p class="main hp"><input type="number" name="lv3_used" value={{ character.lv3_used }}> / <input type="number" name="lv3_ttl" value={{ character.lv3_slots }}></p>
+            <p class="in-box-p">Slots Used/Total</p>
+          </div>
+          <div class="box">
+            <p class="in-box-p">Lv 4</p>
+            <p class="main hp"><input type="number" name="lv4_used" value={{ character.lv4_used }}> / <input type="number" name="lv4_ttl" value={{ character.lv4_slots }}></p>
+            <p class="in-box-p">Slots Used/Total</p>
+          </div>
+          <div class="box">
+            <p class="in-box-p">Lv 5</p>
+            <p class="main hp"><input type="number" name="lv5_used" value={{ character.lv5_used }}> / <input type="number" name="lv5_ttl" value={{ character.lv5_slots }}></p>
+            <p class="in-box-p">Slots Used/Total</p>
+          </div>
+          <div class="box">
+            <p class="in-box-p">Lv 6</p>
+            <p class="main hp"><input type="number" name="lv6_used" value={{ character.lv6_used }}> / <input type="number" name="lv6_ttl" value={{ character.lv6_slots }}></p>
+            <p class="in-box-p">Slots Used/Total</p>
+          </div>
+          <div class="box">
+            <p class="in-box-p">Lv 7</p>
+            <p class="main hp"><input type="number" name="lv7_used" value={{ character.lv7_used }}> / <input type="number" name="lv7_ttl" value={{ character.lv7_slots }}></p>
+            <p class="in-box-p">Slots Used/Total</p>
+          </div>
+          <div class="box">
+            <p class="in-box-p">Lv 8</p>
+            <p class="main hp"><input type="number" name="lv8_used" value={{ character.lv8_used }}> / <input type="number" name="lv8_ttl" value={{ character.lv8_slots }}></p>
+            <p class="in-box-p">Slots Used/Total</p>
+          </div>
+          <div class="box">
+            <p class="in-box-p">Lv 9</p>
+            <p class="main hp"><input type="number" name="lv9_used" value={{ character.lv9_used }}> / <input type="number" name="lv9_ttl" value={{ character.lv9_slots }}></p>
+            <p class="in-box-p">Slots Used/Total</p>
+          </div>
+        </div>
+      </div>
+      <div id="texts">
+        <div class="txt">
+          <h1>Proficiencies and Languages</h1>
+          <textarea name="prf_lang" rows="8">{{ character.profs_lang }}</textarea>
+        </div>
+        <div class="txt">
+          <h1>Features and Traits</h1>
+          <textarea name="ft_trt" rows="8">{{ character.feats_traits }}</textarea>
+        </div>
+        <div class="txt">
+          <h1>Personality</h1>
+          <textarea name="personality" rows="8">{{ character.personality }}</textarea>
+        </div>
+        <div class="txt">
+          <h1>Backstory</h1>
+          <textarea name="backstory" rows="8">{{ character.backstory }}</textarea>
+        </div>
+        <div class="txt">
+          <h1>Appearance</h1>
+          <textarea name="appearance" rows="8">{{ character.appearance }}</textarea>
+        </div>
+      </div>
+      <div>
+        <input id="submit" type="submit" name="submit" value="Submit">
+      </div>
+    </form>
+  </body>
+</html>

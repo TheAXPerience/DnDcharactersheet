@@ -21,7 +21,7 @@
       </div>
       <div class="edits">
         <button onclick="location.href='/edit/{{character.id}}'" type="button" name="edit">Edit Character</button>
-        <button onclick="location.href='/edit/'" type="button" name="delete">Delete Character</button>
+        <button onclick="location.href='/edit/{{character.id}}'" type="button" name="delete">Delete Character</button>
       </div>
     </div>
     <div id="header">
@@ -222,7 +222,7 @@
           {% if s.total > 0 %}
           <div class="box">
             <p class="in-box-p">Lv {{ s.lv }}</p>
-            <p class="main"><span contentEditable="true" name="lv{{ s.lv }}_used">{{ s.used }}</span> / {{ s.total }}</p>
+            <p class="main"><span contentEditable="true" name="lv{{ s.lv }}">{{ s.used }}</span> / {{ s.total }}</p>
             <p class="in-box-p">Slots Used/Total</p>
           </div>
           {% endif %}

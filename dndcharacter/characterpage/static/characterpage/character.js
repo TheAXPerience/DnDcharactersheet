@@ -281,6 +281,22 @@ $().ready(function() {
           $(this).text($(this).data('initialText'));
         } else {
           // submit
+          let submit = {
+            name: $(this).attr('name'),
+            data: $(this).text()
+          }
+          alert('hi')
+          $.ajax({
+            url: "submit-edit",
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(submit),
+            datatype: "text",
+            headers: { 'X-CSRFToken': getCookie() },
+            success: function(response) {
+              alert(response);
+            }
+          });
         }
       }
     });
