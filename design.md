@@ -32,6 +32,17 @@ This section will describe the database models that will need to be created.
 
 The information present for the user will be very minimal, and just enough for the user to login and recover their account.
 
+* Users are able to sign up with a username, email, and password.
+* Usernames are to be unique, so there needs to be a signal to fail sign-up.
+* There needs to be a signal to fail sign-in when there is an incorrect username/password fail.
+* Django automatically stores password hashes.
+* Users are used as foreign keys in Character to mark Characters as owned by Users.
+* You can tell if a user owns a certain character by using 'get_user(request)' - returns User instance of requestor.
+* If a User owns a Character, enable editing and deleting. Otherwise, favorite and unfavorite.
+* Add a Model to map Users to Characters symbolizing characters they "favorite".
+* Create a "view profile" page that lists a User's username, their charcters, their favorited characters, and if the User is viewing it a delete function.
+* Question: should deleting a user also automatically delete their characters?
+
 https://docs.djangoproject.com/en/3.1/topics/auth/
 
 ### Character Information
