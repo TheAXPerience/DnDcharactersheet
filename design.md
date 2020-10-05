@@ -31,7 +31,8 @@ This section will describe the database models that will need to be created.
 ### User Data
 
 The information present for the user will be very minimal, and just enough for the user to login and recover their account.
-Django has a built-in user system that I willhave to delve into at a later point.
+
+https://docs.djangoproject.com/en/3.1/topics/auth/
 
 ### Character Information
 
