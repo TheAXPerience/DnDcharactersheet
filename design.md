@@ -45,6 +45,8 @@ The information present for the user will be very minimal, and just enough for t
 
 https://docs.djangoproject.com/en/3.1/topics/auth/
 
+https://www.w3schools.com/howto/howto_css_overlay.asp
+
 ### Character Information
 
 The information present for the character model will be based on the Dungeons and Dragon's character sheet.
