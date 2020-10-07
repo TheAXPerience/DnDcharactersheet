@@ -6,56 +6,95 @@
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="{% static 'characterpage/index.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'characterpage/top.css' %}">
+    <script src="{% static 'characterpage/jquery-3.5.1.js' %}"></script>
+    <script src="{% static 'characterpage/login.js' %}"></script>
     <title>D&D Character Sheets</title>
   </head>
+  <div class="overlay" id="login">
+    <div class="overlay-header">
+      <button type="button" name="X">X</button>
+      <h1>Login</h1>
+    </div>
+    <div class="logins">
+      <div class="login" id="create">
+        <h1>Create an Account</h1>
+        <label for="email">Email</label>
+        <input type="text" name="email" value="">
+        <label for="username">Username</label>
+        <input type="text" name="username" value="">
+        <label for="password">Password</label>
+        <input type="text" name="password" value="">
+        <button type="button" name="create">Submit</button>
+        <p class="error"></p>
+      </div>
+      <div class="login" id="exists">
+        <h1>Sign-In to an existing account</h1>
+        <label for="username">Username</label>
+        <input type="text" name="email" value="">
+        <label for="password">Password</label>
+        <input type="text" name="password" value="">
+        <a href="#">Forgot Password?</a>
+        <button type="button" name="login">Submit</button>
+        <p class="error"></p>
+      </div>
+    </div>
+  </div>
   <body>
-    <div class="top">
-      <div class="user">
-        To be continued...
+    <div class="content">
+      <div id="page-cover"></div>
+      <div class="top" id="top">
+        <div class="user">
+          {% if False %}
+            <button type="button" name="view" class="top-user-view">View Profile</button>
+            <button type="button" name="logout" class="top-user-logout">Logout</button>
+          {% else %}
+            <button type="button" name="login" class="top-user-login">Login</button>
+          {% endif %}
+        </div>
+        <div class="logo">
+          <h1><a href="/">Dungeons and Dragons</a></h1>
+        </div>
+        <div class="edits">
+          <button type="button" name="mine">Show My Characters</button>
+          <button onclick="location.href='/create/'" type="button" name="create">Create a Character</button>
+        </div>
       </div>
-      <div class="logo">
-        <h1><a href="/">Dungeons and Dragons</a></h1>
-      </div>
-      <div class="edits">
-        <button type="button" name="mine">Show My Characters</button>
-        <button onclick="location.href='/create/'" type="button" name="create">Create a Character</button>
-      </div>
-    </div>
-    <div class="table">
-      <table>
-        <thead>
-          <tr>
-            <th>Last Modified</th>
-            <th>Name</th>
-            <th>Creator</th>
-            <th>Class</th>
-            <th>Race</th>
-            <th>Link</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for c in characters %}
+      <div class="table">
+        <table>
+          <thead>
             <tr>
-              <td>{{ c.date|date:"m/d/y" }} {{ c.date|time:"g:i A"}}</td>
-              <td>{{ c.name }}</td>
-              <td>{{ c.creator }}</td>
-              <td>{{ c.char_class }} (LV {{ c.level }})</td>
-              <td>{{ c.race }}</td>
-              <td><button type="button" name="link{{ forloop.counter }}" onclick="location.href='/character/{{ c.id }}'">Link</button></td>
+              <th>Last Modified</th>
+              <th>Name</th>
+              <th>Creator</th>
+              <th>Class</th>
+              <th>Race</th>
+              <th>Link</th>
             </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-    </div>
-    <div class="bottom">
-      <button onclick="location.href='/page/1'" type="button" name="first">&lt&lt</button>
-      <button onclick="location.href='/page/{{ prv }}'" type="button" name="prev">&lt</button>
-      {% for p in pages %}
-        <button onclick="location.href='/page/{{ p }}'" type="button" name="button">{{ p }}</button>
-      {% endfor %}
-      <button onclick="location.href='/page/{{ nxt }}'" type="button" name="next">&gt</button>
-      <button onclick="location.href='/page/{{ lst }}'" type="button" name="last">&gt&gt</button>
-      <p>Showing results {{ no_one }}-{{ no_two }} of {{ no_three }}</p>
+          </thead>
+          <tbody>
+            {% for c in characters %}
+              <tr>
+                <td>{{ c.date|date:"m/d/y" }} {{ c.date|time:"g:i A"}}</td>
+                <td>{{ c.name }}</td>
+                <td>{{ c.creator }}</td>
+                <td>{{ c.char_class }} (LV {{ c.level }})</td>
+                <td>{{ c.race }}</td>
+                <td><button type="button" name="link{{ forloop.counter }}" onclick="location.href='/character/{{ c.id }}'">Link</button></td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <div class="bottom">
+        <button onclick="location.href='/page/1'" type="button" name="first">&lt&lt</button>
+        <button onclick="location.href='/page/{{ prv }}'" type="button" name="prev">&lt</button>
+        {% for p in pages %}
+          <button onclick="location.href='/page/{{ p }}'" type="button" name="button">{{ p }}</button>
+        {% endfor %}
+        <button onclick="location.href='/page/{{ nxt }}'" type="button" name="next">&gt</button>
+        <button onclick="location.href='/page/{{ lst }}'" type="button" name="last">&gt&gt</button>
+        <p>Showing results {{ no_one }}-{{ no_two }} of {{ no_three }}</p>
+      </div>
     </div>
   </body>
 </html>
