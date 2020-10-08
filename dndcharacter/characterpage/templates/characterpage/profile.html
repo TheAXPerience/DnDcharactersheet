@@ -1,0 +1,105 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="{% static 'characterpage/index.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'characterpage/top.css' %}">
+    <script src="{% static 'characterpage/jquery-3.5.1.js' %}"></script>
+    <script src="{% static 'characterpage/login.js' %}"></script>
+    <title>D&D Character Sheets</title>
+  </head>
+  <div class="overlay" id="login">
+    <div class="overlay-header">
+      <button type="button" name="X">X</button>
+      <h1>Login</h1>
+    </div>
+    <div class="logins">
+      <div class="login" id="create">
+        <h1>Create an Account</h1>
+        <label for="email">Email</label>
+        <input type="text" name="email" value="">
+        <label for="username">Username</label>
+        <input type="text" name="username" value="">
+        <label for="password">Password</label>
+        <input type="text" name="password" value="">
+        <button type="button" name="create">Submit</button>
+        <p class="error"></p>
+      </div>
+      <div class="login" id="exists">
+        <h1>Sign-In to an existing account</h1>
+        <label for="username">Username</label>
+        <input type="text" name="email" value="">
+        <label for="password">Password</label>
+        <input type="text" name="password" value="">
+        <a href="#">Forgot Password?</a>
+        <button type="button" name="login">Submit</button>
+        <p class="error"></p>
+      </div>
+    </div>
+  </div>
+  <body>
+    <div class="content">
+      <div id="page-cover"></div>
+      <div class="top" id="top">
+        <div class="user">
+          {% if False %}
+            <button type="button" name="view" class="top-user-view">View Profile</button>
+            <button type="button" name="logout" class="top-user-logout">Logout</button>
+          {% else %}
+            <button type="button" name="login" class="top-user-login">Login</button>
+          {% endif %}
+        </div>
+        <div class="logo">
+          <h1><a href="/">Dungeons and Dragons</a></h1>
+        </div>
+        <div class="edits">
+          <button type="button" name="mine">Show My Characters</button>
+          <button onclick="location.href='/create/'" type="button" name="create">Create a Character</button>
+        </div>
+      </div>
+      <div id="profile" class="table">
+        <div class="info">
+          <h1>Username</h1>
+          <p><a href="#">Change Password</a></p>
+        </div>
+        <div class="my-chars">
+          <h2>Created Characters</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>Last Modified</th>
+                <th>Name</th>
+                <th>Creator</th>
+                <th>Class</th>
+                <th>Race</th>
+                <th>Link</th>
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+        </div>
+        <br/>
+        <div class="my-favs">
+          <h2>Favorite Characters</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>Last Modified</th>
+                <th>Name</th>
+                <th>Creator</th>
+                <th>Class</th>
+                <th>Race</th>
+                <th>Link</th>
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

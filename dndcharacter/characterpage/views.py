@@ -137,3 +137,36 @@ def send_edit(request, character_id):
     c = get_object_or_404(Character, pk=character_id)
     c.edit_all(request)
     return HttpResponseRedirect(reverse('cpage:char_page', args=(character_id,)))
+
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import User
+
+# login to an account
+def login(request):
+    # passed username and password as json
+    # must authenticate user
+    user = authenticate(username='', password='')
+    if user is not None:
+        login(request, user)
+        return HttpResponse('OK')
+    else:
+        return HttpResponse('Error: username and password not recognized.')
+
+# logout of an account
+def logout(request):
+    logout(request)
+
+# create an account
+def create_account(request):
+    other_user = User.filter(username='')
+    if other_user is None or len(other_user) > 0:
+        return HttpResponse('Error: username already exists.')
+    user = User(username='', email='', password='')
+    user.save()
+    return HttpResponse('OK')
+
+def profile_page(request, username):
+    context = {
+        'user': get_object_or_404(User, username=username)
+    }
+    return render(request, 'characterpage/profile.html', context)

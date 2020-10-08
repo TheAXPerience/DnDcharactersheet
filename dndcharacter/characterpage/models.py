@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.db import models, transaction
 from django.utils import timezone
 
@@ -13,7 +14,8 @@ def check_overflow(val):
 class Character(models.Model):
     # implicit id for primary key
     name = models.CharField(max_length=50, default='n/a')
-    creator = models.CharField(max_length=30, default='n/a')
+    creator = models.CharField(max_length=30, default='n/a') # keep for now as legacy
+    user = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
     date = models.DateTimeField('creation date', default=timezone.now)
 
     # basic information
@@ -154,6 +156,9 @@ class Character(models.Model):
 
     def queryset(self):
         return self.__class__.objects.filter(id=self.id)
+
+    def verify_user(self, u):
+        return u.id == self.user.id
 
     def getStats(self):
         return [
@@ -377,7 +382,7 @@ class Character(models.Model):
         c.personality = request.POST.get('personality')
         c.backstory = request.POST.get('backstory')
         c.appearance = request.POST.get('appearance')
-        c.save()        
+        c.save()
 
     @transaction.atomic
     def add_AS(self, data):
@@ -446,7 +451,7 @@ class Character(models.Model):
         else:
             CharSpells.objects.filter(name=data['name'], character=c).delete()
         return 'OK'
-    
+
 class Equipment(models.Model):
     character = models.ForeignKey(Character, null=True, on_delete=models.CASCADE, related_name='equips')
     name = models.CharField('equipment', max_length=50, default='n/a')
@@ -474,3 +479,8 @@ class CharSpells(models.Model):
 
     class Meta:
         unique_together = (('character', 'name'),)
+
+class Favorite(models.Model):
+    character = models.ForeignKey(Character, null=False, on_delete=models.CASCADE, related_name='faved')
+    user = models.ForeignKey(User, null=False, on_delete=models.CASCADE, related_name='favor')
+    date = models.DateTimeField('favorite date', default=timezone.now)
