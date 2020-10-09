@@ -5,7 +5,7 @@ body {
   color: black;
 }
 
-body div {
+div.character {
   background-color: white;
   width: 80%;
   margin: 1px auto;
@@ -325,7 +325,7 @@ body div {
   font-size: 16px;
 }
 
-input {
+.content input {
   font-size: 16px;
   vertical-align: middle;
   margin: 1px auto;
@@ -333,7 +333,7 @@ input {
   margin: 2px;
 }
 
-input.checkbox {
+.content input.checkbox {
   width: 10px;
   height: 10px;
   margin: 1px 4px;
@@ -350,7 +350,7 @@ input.checkbox {
   width: 30%;
 }
 
-textarea {
+.content textarea {
   font-size: 16px;
   width: 99.5%;
   margin: 1px auto;

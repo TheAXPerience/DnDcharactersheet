@@ -15,7 +15,7 @@ class Character(models.Model):
     # implicit id for primary key
     name = models.CharField(max_length=50, default='n/a')
     creator = models.CharField(max_length=30, default='n/a') # keep for now as legacy
-    user = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, null=False, on_delete=models.CASCADE)
     date = models.DateTimeField('creation date', default=timezone.now)
 
     # basic information
@@ -282,7 +282,6 @@ class Character(models.Model):
         c.level = check_overflow(request.POST.get('level'))
         c.char_class = request.POST.get('charclass')[:20]
         c.race = request.POST.get('charrace')[:20]
-        c.creator = request.POST.get('player')[:30]
         c.bg = request.POST.get('background')[:20]
         c.alignment = request.POST.get('alignment')[:20]
         c.exp = check_overflow(request.POST.get('exp'))

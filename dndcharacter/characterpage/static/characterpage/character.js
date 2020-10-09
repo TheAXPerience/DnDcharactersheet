@@ -67,7 +67,7 @@ function add_sp_row(table) {
 };
 
 function getCookie() {
-    return document.querySelector('[name=csrfmiddlewaretoken]').value;;
+    return document.querySelector('[name=csrfmiddlewaretoken]').value;
 }
 
 function delete_aes(name, url) {

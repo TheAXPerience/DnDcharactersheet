@@ -4,20 +4,79 @@
 function submit_create() {
   let inputs = $('#create > input');
   var not_empty = true;
-  var str = '';
   inputs.each(function() {
     not_empty = not_empty && ($(this).val() !== '');
-    str += $(this).val();
   })
   if (not_empty) {
-    location.reload();
+    // get inputs and send to server
+    const i = $('#create').find('input');
+    let submit = {
+      'type': 'login',
+      'email': i[0].value,
+      'username': i[1].value,
+      'password': i[2].value
+    }
+
+    $.ajax({
+      url: "/signupaccount",
+      type: "POST",
+      contentType: "application/json; charset=utf-8",
+      data: JSON.stringify(submit),
+      datatype: "text",
+      headers: { 'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value },
+      success: function(response) {
+        if (response !== 'OK') {
+          $('#create p').text(response);
+        } else {
+          location.reload();
+        }
+      },
+      failure: function(response) {
+        $('#create p').text(response);
+      }
+    });
   } else {
-    $('#create p').text('submit create account: ' + str);
+    $('#create p').text('Error: all parameters must not be empty.');
   }
 }
 
 function submit_signin() {
-  $('#exists p').text('submit sign-in to account');
+  let inputs = $('#exists > input');
+  var not_empty = true;
+  inputs.each(function() {
+    not_empty = not_empty && ($(this).val() !== '');
+  })
+  if (not_empty) {
+    // get inputs and send to server
+    const i = $('#exists').find('input')
+    let submit = {
+      'type': 'login',
+      'username': i[0].value,
+      'password': i[1].value
+    }
+    console.log(submit);
+
+    $.ajax({
+      url: "/loginaccount",
+      type: "POST",
+      contentType: "application/json; charset=utf-8",
+      data: JSON.stringify(submit),
+      datatype: "text",
+      headers: { 'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value },
+      success: function(response) {
+        if (response !== 'OK') {
+          $('#exists p').text(response);
+        } else {
+          location.reload();
+        }
+      },
+      failure: function(response) {
+        $('#exists p').text(response);
+      }
+    });
+  } else {
+    $('#exists p').text('Error: all parameters must not be empty.');
+  }
 }
 
 var is_login_active = false;

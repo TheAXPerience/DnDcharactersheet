@@ -11,6 +11,7 @@
     <title>D&D Character Sheets</title>
   </head>
   <div class="overlay" id="login">
+    {% csrf_token %}
     <div class="overlay-header">
       <button type="button" name="X">X</button>
       <h1>Login</h1>
@@ -44,9 +45,9 @@
       <div id="page-cover"></div>
       <div class="top" id="top">
         <div class="user">
-          {% if False %}
-            <button type="button" name="view" class="top-user-view">View Profile</button>
-            <button type="button" name="logout" class="top-user-logout">Logout</button>
+          {% if user_me.is_authenticated %}
+            <button onclick="location.href='/profile/{{ user.username }}'" type="button" name="view" class="top-user-view">View Profile</button>
+            <button onclick="location.href='/logoutaccount'" type="button" name="logout" class="top-user-logout">Logout</button>
           {% else %}
             <button type="button" name="login" class="top-user-login">Login</button>
           {% endif %}
@@ -55,13 +56,14 @@
           <h1><a href="/">Dungeons and Dragons</a></h1>
         </div>
         <div class="edits">
-          <button type="button" name="mine">Show My Characters</button>
-          <button onclick="location.href='/create/'" type="button" name="create">Create a Character</button>
+          {% if user_me.is_authenticated %}
+            <button onclick="location.href='/create/'" type="button" name="create">Create a Character</button>
+          {% endif %}
         </div>
       </div>
       <div id="profile" class="table">
         <div class="info">
-          <h1>Username</h1>
+          <h1>{{ user.username }}</h1>
           <p><a href="#">Change Password</a></p>
         </div>
         <div class="my-chars">
@@ -78,6 +80,16 @@
               </tr>
             </thead>
             <tbody>
+              {% for c in characters %}
+                <tr>
+                  <td>{{ c.date|date:"m/d/y" }} {{ c.date|time:"g:i A"}}</td>
+                  <td>{{ c.name }}</td>
+                  <td><a href="/profile/{{ c.user.username }}">{{ c.user.username }}</a></td>
+                  <td>{{ c.char_class }} (LV {{ c.level }})</td>
+                  <td>{{ c.race }}</td>
+                  <td><button type="button" name="link{{ forloop.counter }}" onclick="location.href='/character/{{ c.id }}'">Link</button></td>
+                </tr>
+              {% endfor %}
             </tbody>
           </table>
         </div>

@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.utils import timezone
-from .models import Character, Equipment, AttackSpell, CharSpells
+from .models import Character, Equipment, AttackSpell, CharSpells, Favorite
 import json
 
 # Create your views here.
@@ -25,7 +25,8 @@ def index(request):
             'lst': lst,
             'no_one': 1,
             'no_two': min(25, len(chars)),
-            'no_three': len(chars)
+            'no_three': len(chars),
+            'user': request.user,
         }
     return render(request, 'characterpage/index.html', context)
 
@@ -44,6 +45,7 @@ def page(request, page):
         while pages[-1] > lst:
             pages.pop()
         context = {
+            'user': request.user,
             'characters': chars[no_one-1:no_two],
             'prv': max(1, page - 1),
             'nxt': min(lst, page + 1),
@@ -70,6 +72,8 @@ def character(request, character_id):
         if s == None or len(s) == 0:
             s = None
         context = {
+            'user': request.user,
+            'is_user': request.user.is_authenticated and request.user == c.user,
             'character': c,
             'atk': a,
             'eqp': e,
@@ -79,10 +83,17 @@ def character(request, character_id):
 
 def edit(request, character_id):
     context = {}
+    if not request.user.is_authenticated:
+        # not allowed to access edit page
+        return HttpResponseRedirect(reverse('cpage:index'))
     with transaction.atomic():
         c = get_object_or_404(Character.objects.select_for_update(), pk=character_id)
+        if not request.user == c.user:
+            # only the original user can edit their own character
+            return HttpResponseRedirect(reverse('cpage:index'))
         context = {
-            'character': c
+            'user': request.user,
+            'character': c,
         }
     return render(request, 'characterpage/submit.html', context)
 
@@ -129,7 +140,10 @@ def submit_sp(request, character_id):
     return HttpResponse("OK")
 
 def create(request):
-    c = Character(date = timezone.now())
+    if not request.user.is_authenticated:
+        # not allowed to make a character
+        return HttpResponseRedirect(reverse('cpage:index'))
+    c = Character(date = timezone.now(), user=request.user)
     c.save()
     return HttpResponseRedirect(reverse('cpage:char_edit', args=(c.id,)))
 
@@ -140,12 +154,22 @@ def send_edit(request, character_id):
 
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
+from django.contrib.auth.hashers import make_password
+from django.contrib.auth.password_validation import validate_password
 
 # login to an account
-def login(request):
+def login_account(request):
     # passed username and password as json
     # must authenticate user
-    user = authenticate(username='', password='')
+    username = ''
+    password = ''
+    if request.is_ajax() and request.method == 'POST':
+        # grab json data
+        data = json.loads(request.body)
+        # save json data
+        username = data['username']
+        password = data['password']
+    user = authenticate(username=username, password=password)
     if user is not None:
         login(request, user)
         return HttpResponse('OK')
@@ -153,20 +177,41 @@ def login(request):
         return HttpResponse('Error: username and password not recognized.')
 
 # logout of an account
-def logout(request):
+def logout_account(request):
     logout(request)
+    return HttpResponseRedirect(reverse('cpage:index'))
 
 # create an account
 def create_account(request):
-    other_user = User.filter(username='')
-    if other_user is None or len(other_user) > 0:
+    username = ''
+    password = ''
+    email = ''
+    if request.is_ajax() and request.method == 'POST':
+        # grab json data
+        data = json.loads(request.body)
+        # save json data
+        username = data['username']
+        password = data['password']
+        email = data['email']
+    else:
+        return HttpResponse('Error: request invalid.')
+    other_user = User.objects.filter(username=username)
+    if len(other_user) > 0:
         return HttpResponse('Error: username already exists.')
-    user = User(username='', email='', password='')
+    # password check
+    if validate_password(password) is not None:
+        return HttpResponse('Error: password invalid.<br/>Passowrd must be 4 characters minimum.<br/>Password must not be entirely numeric.')
+    user = User(username=username, email=email, password=make_password(password))
     user.save()
+    login(request, user)
     return HttpResponse('OK')
 
 def profile_page(request, username):
+    user = get_object_or_404(User, username=username)
     context = {
-        'user': get_object_or_404(User, username=username)
+        'user': user,
+        'characters': Character.objects.filter(user=user).order_by('-date'),
+        'favorites': Favorite.objects.filter(user=user).order_by('-date'),
+        'user_me': request.user
     }
     return render(request, 'characterpage/profile.html', context)

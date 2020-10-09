@@ -15,7 +15,7 @@ urlpatterns = [
   path('create/', views.create, name='create'),
   path('edit/<int:character_id>/send/', views.send_edit, name='post'),
   path('signupaccount', views.create_account, name='create-account'),
-  path('loginaccount', views.login, name='login-account'),
-  path('logoutaccount', views.logout, name='logout-account'),
+  path('loginaccount', views.login_account, name='login-account'),
+  path('logoutaccount', views.logout_account, name='logout-account'),
   path('profile/<str:username>', views.profile_page, name='profile'),
 ]
