@@ -215,3 +215,28 @@ def profile_page(request, username):
         'user_me': request.user
     }
     return render(request, 'characterpage/profile.html', context)
+
+def add_to_favorites(request, character_id):
+    if request.is_ajax() and request.method='POST':
+        if not request.user.is_authenticated:
+            return HttpResponse('Error: user not signed in.')
+        with transaction.atomic():
+            c = get_object_or_404(Character.objects.select_for_update(), pk=character_id)
+            favs = Favorite.objects.filter(user=request.user, character=c)
+            if len(favs) > 0:
+                return HttpResponse('Error: character already added to favorites.')
+            favorite = Favorite(date=timezone.now(), user=request.user, character=c)
+            favorite.save()
+    return HttpResponse('OK')
+
+def remove_from_favorites(request, character_id):
+    if request.is_ajax() and request.method='POST':
+        if not request.user.is_authenticated:
+            return HttpResponse('Error: user not signed in.')
+        with transaction.atomic():
+            c = get_object_or_404(Character.objects.select_for_update(), pk=character_id)
+            favs = Favorite.objects.filter(user=request.user, character=c)
+            if len(favs) != 1:
+                return HttpResponse('Error: character already not in favorites.')
+            favs.delete()
+    return HttpResponse('OK')

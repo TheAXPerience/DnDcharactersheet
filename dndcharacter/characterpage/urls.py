@@ -18,4 +18,6 @@ urlpatterns = [
   path('loginaccount', views.login_account, name='login-account'),
   path('logoutaccount', views.logout_account, name='logout-account'),
   path('profile/<str:username>', views.profile_page, name='profile'),
+  path('character/<int:character_id>/favorite', views.add_to_favorites, name='add_fav'),
+  path('character/<int:character_id>/unfavorite', views.remove_from_favorites, name='rm_fav')
 ]

@@ -413,7 +413,7 @@ class Character(models.Model):
             # check if name and character pair already exists
             eqs = c.equips.filter(name=data['name'])
             if len(eqs) > 0:
-                return 'Equipment already exists'
+                return 'Error: equipment already exists'
             # make and save new attack/spell
             e = Equipment(
                 character=c,
