@@ -134,19 +134,19 @@
         </span>
         <span class="four">
           <div class="box">
-            <p class="main"><span contentEditable="true" name="curr_hp">{{ character.curr_hp }}</span> / {{ character.max_hp }}</p>
+            <p class="main"><span {% if is_user %}contentEditable="true"{%endif%} name="curr_hp">{{ character.curr_hp }}</span> / {{ character.max_hp }}</p>
             <p class="in-box-p">Hit Points</p>
           </div>
           <div class="box">
-            <p class="main" contentEditable="true" name="temp_hp">{{ character.temp_hp }}</p>
+            <p class="main" {% if is_user %}contentEditable="true"{%endif%} name="temp_hp">{{ character.temp_hp }}</p>
             <p class="in-box-p">Temporary Hit Points</p>
           </div>
           <div class="box">
-            <p class="main"><span contentEditable="true" name="ds_success">{{ character.ds_success }}</span> / 3</p>
+            <p class="main"><span {% if is_user %}contentEditable="true"{%endif%} name="ds_success">{{ character.ds_success }}</span> / 3</p>
             <p class="in-box-p">Death Save: Success</p>
           </div>
           <div class="box">
-            <p class="main"><span contentEditable="true" name="ds_failure">{{ character.ds_failure }}</span> / 3</p>
+            <p class="main"><span {% if is_user %}contentEditable="true"{%endif%} name="ds_failure">{{ character.ds_failure }}</span> / 3</p>
             <p class="in-box-p">Death Save: Failure</p>
           </div>
         </span>
@@ -189,14 +189,16 @@
                     <td>{{ a.hit_dc }}</td>
                     <td>{{ a.r }} ft</td>
                     <td>{{ a.damage }}</td>
-                    <td><button type="button" name="delete" class="delete-as">Delete</button></td>
+                    <td>{% if is_user %}<button type="button" name="delete" class="delete-as">Delete</button>{% else %}Disabled{% endif %}</td>
                   </tr>
                 {% endfor %}
               {% endif %}
             </tbody>
+            {% if is_user %}
             <tr>
               <td colspan=5><button type="button" name="add-as" id="add-as">Add an attack</button></td>
             </tr>
+            {% endif %}
           </table>
         </div>
       </div>
@@ -208,7 +210,7 @@
           {% for m in character.getMoney %}
             <div class="cash">
               <p>{{ m.name }}</p>
-              <p class="plus" contentEditable="true" name="{{ m.name }}">{{ m.value }}</p>
+              <p class="plus" {% if is_user %}contentEditable="true"{% endif %} name="{{ m.name }}">{{ m.value }}</p>
             </div>
           {% endfor %}
         </div>
@@ -229,14 +231,16 @@
                     <td>{{ e.name }}</td>
                     <td>{{ e.quantity }}</td>
                     <td>{{ e.weight }}</td>
-                    <td><button type="button" name="delete" class="delete-eq">Delete</button></td>
+                    <td>{% if is_user %}<button type="button" name="delete" class="delete-eq">Delete</button>{% else %}Disabled{% endif %}</td>
                   </tr>
                 {% endfor %}
               {% endif %}
             </tbody>
+            {% if is_user %}
             <tr>
               <td colspan=4><button type="button" name="add-eq" id="add-eq">Add equipment</button></td>
             </tr>
+            {% endif %}
           </table>
         </div>
       </div>
@@ -263,7 +267,7 @@
             {% if s.total > 0 %}
             <div class="box">
               <p class="in-box-p">Lv {{ s.lv }}</p>
-              <p class="main"><span contentEditable="true" name="lv{{ s.lv }}">{{ s.used }}</span> / {{ s.total }}</p>
+              <p class="main"><span {% if is_user %}contentEditable="true"{% endif %} name="lv{{ s.lv }}">{{ s.used }}</span> / {{ s.total }}</p>
               <p class="in-box-p">Slots Used/Total</p>
             </div>
             {% endif %}
@@ -286,14 +290,16 @@
                     <td><div class={% if s.prepared %}"circle fill"{% else %}"circle"{% endif %}></div></td>
                     <td>{{ s.name }}</td>
                     <td>{{ s.level }}</td>
-                    <td><button type="button" name="delete" class="delete-sp">Delete</button></td>
+                    <td>{% if is_user %}<button type="button" name="delete" class="delete-sp">Delete</button>{% else %}Disabled{% endif %}</td>
                   </tr>
                 {% endfor %}
               {% endif %}
             </tbody>
+            {% if is_user %}
             <tr>
               <td colspan=4><button type="button" name="add-spell" id="add-sp">Add a spell</button></td>
             </tr>
+            {% endif %}
           </table>
         </div>
       </div>
