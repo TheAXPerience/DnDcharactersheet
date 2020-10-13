@@ -59,9 +59,17 @@
         <div class="edits">
           {% if is_user %}
             <button onclick="location.href='/edit/{{character.id}}'" type="button" name="edit">Edit Character</button>
-            <button onclick="location.href='/edit/{{character.id}}'" type="button" name="delete">Delete Character</button>
+            {% if is_favorite %}
+              <button type="button" name="unfavorite" id="unfavorite-button">Remove from Favorites</button>
+            {% else %}
+              <button type="button" name="favorite" id="favorite-button">Add to Favorites</button>
+            {% endif %}
           {% elif user.is_authenticated %}
-            <button type="button" name="favorite">Favorite Character</button>
+            {% if is_favorite %}
+              <button type="button" name="unfavorite" id="unfavorite-button">Remove from Favorites</button>
+            {% else %}
+              <button type="button" name="favorite" id="favorite-button">Add to Favorites</button>
+            {% endif %}
           {% endif %}
         </div>
       </div>
@@ -85,7 +93,7 @@
               <tr>
                 <td>{{ character.char_class }} (Lv. {{ character.level }})</td>
                 <td>{{ character.race }}</td>
-                <td>{{ character.user.username }}</td>
+                <td><a href="/profile/{{ character.user.username }}">{{ character.user.username }}</a></td>
                 <td>{{ character.bg }}</td>
                 <td>{{ character.alignment }}</td>
                 <td>{{ character.exp }}</td>

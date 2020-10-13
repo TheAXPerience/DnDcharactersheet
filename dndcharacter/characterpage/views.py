@@ -71,9 +71,13 @@ def character(request, character_id):
             e = None
         if s == None or len(s) == 0:
             s = None
+        fav = request.user.is_authenticated
+        if fav:
+            fav = len(Favorite.objects.filter(user=request.user, character=c)) > 0
         context = {
             'user': request.user,
             'is_user': request.user.is_authenticated and request.user == c.user,
+            'is_favorite': fav,
             'character': c,
             'atk': a,
             'eqp': e,
@@ -217,7 +221,7 @@ def profile_page(request, username):
     return render(request, 'characterpage/profile.html', context)
 
 def add_to_favorites(request, character_id):
-    if request.is_ajax() and request.method='POST':
+    if request.is_ajax() and request.method == 'POST':
         if not request.user.is_authenticated:
             return HttpResponse('Error: user not signed in.')
         with transaction.atomic():
@@ -230,7 +234,7 @@ def add_to_favorites(request, character_id):
     return HttpResponse('OK')
 
 def remove_from_favorites(request, character_id):
-    if request.is_ajax() and request.method='POST':
+    if request.is_ajax() and request.method == 'POST':
         if not request.user.is_authenticated:
             return HttpResponse('Error: user not signed in.')
         with transaction.atomic():

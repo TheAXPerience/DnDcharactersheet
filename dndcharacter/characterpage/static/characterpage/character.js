@@ -234,6 +234,49 @@ function submit_sp_row(parent) {
   });
 };
 
+let changed = false;
+function add_favorite(button) {
+  alert('favorite')
+  const submit = {'type': 'favorite'};
+  $.ajax({
+    url: "favorite",
+    type: "POST",
+    contentType: "application/json; charset=utf-8",
+    data: JSON.stringify(submit),
+    datatype: "text",
+    headers: { 'X-CSRFToken': getCookie() },
+    success: function(response) {
+      if (response == 'OK') {
+        button.text('Remove from Favorites');
+        changed = !changed;
+      } else {
+        alert(response);
+      }
+    }
+  });
+}
+
+function rm_favorite(button) {
+  alert('unfavorite')
+  const submit = {'type': 'favorite'};
+  $.ajax({
+    url: "unfavorite",
+    type: "POST",
+    contentType: "application/json; charset=utf-8",
+    data: JSON.stringify(submit),
+    datatype: "text",
+    headers: { 'X-CSRFToken': getCookie() },
+    success: function(response) {
+      if (response == 'OK') {
+        button.text('Add to Favorites');
+        changed = !changed;
+      } else {
+        alert(response);
+      }
+    }
+  });
+}
+
 $().ready(function() {
   $('#add-as').click(function() {
     add_as_row($(this).closest('table'));
@@ -245,6 +288,28 @@ $().ready(function() {
 
   $('#add-sp').click(function() {
     add_sp_row($(this).closest("table"));
+  });
+
+  $('#favorite-button').click(function() {
+    alert('pressed')
+    if (!changed) {
+      // add to favorites
+      add_favorite($(this))
+    } else {
+      // remove from favorites
+      rm_favorite($(this))
+    }
+  });
+
+  $('#unfavorite-button').click(function() {
+    alert('pressed')
+    if (changed) {
+      // add to favorites
+      add_favorite($(this))
+    } else {
+      // remove from favorites
+      rm_favorite($(this))
+    }
   });
 
   $('.delete-as').click(function() {

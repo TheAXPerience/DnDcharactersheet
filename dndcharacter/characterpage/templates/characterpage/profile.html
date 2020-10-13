@@ -108,6 +108,16 @@
               </tr>
             </thead>
             <tbody>
+              {% for f in favorites %}
+                <tr>
+                  <td>{{ f.character.date|date:"m/d/y" }} {{ f.character.date|time:"g:i A"}}</td>
+                  <td>{{ f.character.name }}</td>
+                  <td><a href="/profile/{{ c.user.username }}">{{ f.character.user.username }}</a></td>
+                  <td>{{ f.character.char_class }} (LV {{ f.character.level }})</td>
+                  <td>{{ f.character.race }}</td>
+                  <td><button type="button" name="link{{ forloop.counter }}" onclick="location.href='/character/{{ f.character.id }}'">Link</button></td>
+                </tr>
+              {% endfor %}
             </tbody>
           </table>
         </div>
